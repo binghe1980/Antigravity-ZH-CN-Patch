@@ -10,7 +10,12 @@ Google Antigravity 桌面客户端深度中文汉化补丁（已适配 **Antigra
 [![Node Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2018.18.0-informational)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-本项目基于开源社区项目 [`antigravity-cn-community/Antigravity-Chinese-Localization`](https://github.com/antigravity-cn-community/Antigravity-Chinese-Localization)（MIT 协议）进行适配、构建与全量验证，针对 **Antigravity v2.35.1** 提供开箱即用的预制 `app.asar` 汉化包、跨平台安装脚本、本地可视化控制中心与完整的本地动态注入能力。
+**Antigravity-ZH-CN-Patch** 是一款专为 **Google Antigravity** 桌面客户端打造的深度中文汉化补丁，提供开箱即用的预制 `app.asar` 汉化包、跨平台一键安装脚本、本地可视化控制中心及完整的本地动态注入能力。
+
+- **开箱即用，全平台支持**：已精准适配 **Antigravity v2.35.1**，按官方原生轻量规格（约 7.56 MiB）打包，支持 macOS / Windows / Linux 一键安装、可视化控制中心与智能体自动部署。
+- **深度覆盖，体验自然**：内置 `4,830+` 条零重复中文词条与动态规则，完整覆盖主界面、设置面板、权限沙盒、语音听写、规划模式、`Swarm` 多智能体及原生菜单，并保留模型名等专业术语英文原生。
+- **安全无损，随时可还原**：物理级跳过代码编辑器、输入框与对话正文；安装前严格校验版本与 SHA-256 并自动备份 `app.asar.bak`，防白屏且支持一键无损还原，通过 63/63 组自动化回归测试。
+- **纯粹透明，仅限显示层**：严格只作用于前端 UI 文案与本地原生菜单，不修改任何账号认证、网络通信、配额计费或后端服务逻辑。
 
 > [最新 Release 下载](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/releases/latest) · [问题反馈 (Issues)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/issues) · [致谢上游社区](https://github.com/antigravity-cn-community/Antigravity-Chinese-Localization)
 
