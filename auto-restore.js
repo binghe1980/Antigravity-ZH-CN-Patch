@@ -60,6 +60,20 @@ async function hashFile(filePath) {
   return hash.digest('hex');
 }
 
+async function renameWithWinRetry(src, dest, { attempts = 6, delayMs = 200 } = {}) {
+  const maxAttempts = process.platform === 'win32' ? Math.max(1, attempts) : 1;
+  for (let i = 0; i < maxAttempts; i++) {
+    try {
+      await fsp.rename(src, dest);
+      return;
+    } catch (error) {
+      const retryable = error && ['EPERM', 'EBUSY', 'EACCES'].includes(error.code);
+      if (!retryable || i === maxAttempts - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+}
+
 /**
  * 寻找本地可用的汉化补丁包
  * 优先级：
@@ -423,8 +437,8 @@ async function executeAutoRestore({
         normalizeVersion(readAsarPackageVersion(asarPath)) !== appNorm) {
       throw new Error('客户端或暂存汉化包版本已变化，已阻止覆盖，请重新检查后重试');
     }
-    // 3. 原子重命名覆盖目标
-    await fsp.rename(stagePath, asarPath);
+    // 3. 原子重命名覆盖目标（Windows 下兼容杀毒软件短暂占锁自动重试）
+    await renameWithWinRetry(stagePath, asarPath);
 
     return {
       success: true,

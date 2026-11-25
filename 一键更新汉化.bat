@@ -38,7 +38,9 @@ echo  [成功] 汉化补丁已就绪！正在重新启动 Antigravity...
 echo =======================================================
 if not defined ANTIGRAVITY_BATCH_NOPAUSE timeout /t 2 >nul
 if defined ANTIGRAVITY_NO_START goto CLEANUP
-if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" start "" "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe"
+set "ELECTRON_RUN_AS_NODE="
+set "ELECTRON_NO_ASAR="
+if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" start "" /D "%LOCALAPPDATA%\Programs\antigravity" "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe"
 goto CLEANUP
 
 :NODE_MISMATCH
@@ -101,9 +103,9 @@ echo.
 if not defined ANTIGRAVITY_BATCH_NOPAUSE pause
 echo.
 
-echo [1/3] 正在关闭 Antigravity 进程...
-if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /IM Antigravity.exe >nul 2>&1
-if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /IM language_server.exe >nul 2>&1
+echo [1/3] 正在关闭 Antigravity 进程树...
+if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /T /IM Antigravity.exe >nul 2>&1
+if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /T /IM language_server.exe >nul 2>&1
 if not defined ANTIGRAVITY_BATCH_NOPAUSE timeout /t 2 >nul
 
 echo [2/3] 正在校验并安全维护原版备份 app.asar.bak...
@@ -124,8 +126,13 @@ echo =======================================================
 echo.
 set "EXIT_CODE=0"
 if defined ANTIGRAVITY_NO_START goto CLEANUP
-if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" echo 正在为您重新启动 Antigravity...
-if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" start "" "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe"
+if not defined ANTIGRAVITY_BATCH_NOPAUSE timeout /t 2 >nul
+set "ELECTRON_RUN_AS_NODE="
+set "ELECTRON_NO_ASAR="
+set "LAUNCH_DIR=%LOCALAPPDATA%\Programs\antigravity"
+for %%I in ("%TARGET_DIR%\..") do if exist "%%~fI\Antigravity.exe" set "LAUNCH_DIR=%%~fI"
+if exist "%LAUNCH_DIR%\Antigravity.exe" echo 正在为您重新启动 Antigravity...
+if exist "%LAUNCH_DIR%\Antigravity.exe" start "" /D "%LAUNCH_DIR%" "%LAUNCH_DIR%\Antigravity.exe"
 goto CLEANUP
 
 :LEGACY_NO_CLIENT
@@ -197,9 +204,9 @@ echo.
 if not defined ANTIGRAVITY_BATCH_NOPAUSE pause
 echo.
 
-echo [1/2] 正在关闭 Antigravity 进程...
-if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /IM Antigravity.exe >nul 2>&1
-if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /IM language_server.exe >nul 2>&1
+echo [1/2] 正在关闭 Antigravity 进程树...
+if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /T /IM Antigravity.exe >nul 2>&1
+if not defined ANTIGRAVITY_SKIP_TASKKILL taskkill /F /T /IM language_server.exe >nul 2>&1
 if not defined ANTIGRAVITY_BATCH_NOPAUSE timeout /t 2 >nul
 
 echo [2/2] 正在校验 SHA-256 并安全还原官方英文原版 app.asar...
@@ -220,8 +227,13 @@ echo =======================================================
 echo.
 set "EXIT_CODE=0"
 if not defined ANTIGRAVITY_NO_START (
-  if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" echo 正在为您重新启动 Antigravity...
-  if exist "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe" start "" "%LOCALAPPDATA%\Programs\antigravity\Antigravity.exe"
+  if not defined ANTIGRAVITY_BATCH_NOPAUSE timeout /t 2 >nul
+  set "ELECTRON_RUN_AS_NODE="
+  set "ELECTRON_NO_ASAR="
+  set "LAUNCH_DIR=%LOCALAPPDATA%\Programs\antigravity"
+  for %%I in ("%TARGET_DIR%\..") do if exist "%%~fI\Antigravity.exe" set "LAUNCH_DIR=%%~fI"
+  if exist "%LAUNCH_DIR%\Antigravity.exe" echo 正在为您重新启动 Antigravity...
+  if exist "%LAUNCH_DIR%\Antigravity.exe" start "" /D "%LAUNCH_DIR%" "%LAUNCH_DIR%\Antigravity.exe"
 )
 if not defined ANTIGRAVITY_BATCH_NOPAUSE pause
 goto CLEANUP
@@ -495,18 +507,71 @@ function Get-FileSha256Hex([string]$FilePath) {
   }
 }
 
-function Replace-FileSafely([string]$TempFile, [string]$DestFile) {
-  if (Test-Path -LiteralPath $DestFile -PathType Leaf) {
-    try {
-      [System.IO.File]::Replace($TempFile, $DestFile, $null, $true)
-      return
-    } catch {
-      [System.IO.File]::Copy($TempFile, $DestFile, $true)
-      [System.IO.File]::Delete($TempFile)
-      return
+function Wait-AntigravityProcessesStopped([int]$TimeoutMs = 5000) {
+  if (-not [string]::IsNullOrEmpty($env:ANTIGRAVITY_SKIP_TASKKILL)) { return }
+  $deadline = [DateTime]::UtcNow.AddMilliseconds($TimeoutMs)
+  while ($true) {
+    $running = @(Get-Process -Name 'Antigravity','language_server' -ErrorAction SilentlyContinue)
+    if ($running.Count -eq 0) { return }
+    foreach ($p in $running) {
+      try { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue } catch {}
     }
-  } else {
-    [System.IO.File]::Move($TempFile, $DestFile)
+    if ([DateTime]::UtcNow -ge $deadline) {
+      throw 'Antigravity or language_server process is still running; please close it manually in Task Manager and retry.'
+    }
+    Start-Sleep -Milliseconds 200
+  }
+}
+
+function Clear-StaleCodeCache {
+  if (-not [string]::IsNullOrEmpty($env:ANTIGRAVITY_SKIP_TASKKILL)) { return }
+  $roots = @()
+  if (-not [string]::IsNullOrEmpty($env:APPDATA)) {
+    $roots += (Join-Path $env:APPDATA 'Antigravity')
+    $roots += (Join-Path $env:APPDATA 'antigravity')
+  }
+  if (-not [string]::IsNullOrEmpty($env:LOCALAPPDATA)) {
+    $roots += (Join-Path $env:LOCALAPPDATA 'antigravity')
+  }
+  foreach ($root in ($roots | Select-Object -Unique)) {
+    $codeCache = Join-Path $root 'Code Cache'
+    if (Test-Path -LiteralPath $codeCache -PathType Container) {
+      try {
+        $item = Get-Item -LiteralPath $codeCache -Force
+        if (($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -eq 0) {
+          Remove-Item -LiteralPath $codeCache -Recurse -Force -ErrorAction SilentlyContinue
+        }
+      } catch {}
+    }
+  }
+}
+
+function Replace-FileSafely([string]$TempFile, [string]$DestFile) {
+  try { Unblock-File -LiteralPath $TempFile -ErrorAction SilentlyContinue } catch {}
+  $maxAttempts = 5
+  for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+    try {
+      if (Test-Path -LiteralPath $DestFile -PathType Leaf) {
+        try {
+          [System.IO.File]::Replace($TempFile, $DestFile, $null, $true)
+          return
+        } catch {
+          if ($attempt -lt $maxAttempts) {
+            Start-Sleep -Milliseconds 250
+            continue
+          }
+          [System.IO.File]::Copy($TempFile, $DestFile, $true)
+          [System.IO.File]::Delete($TempFile)
+          return
+        }
+      } else {
+        [System.IO.File]::Move($TempFile, $DestFile)
+        return
+      }
+    } catch {
+      if ($attempt -ge $maxAttempts) { throw }
+      Start-Sleep -Milliseconds 250
+    }
   }
 }
 
@@ -592,7 +657,9 @@ if ($action -eq 'restore_precheck' -or $action -eq 'restore') {
     if ((Test-LocalizedAsar $restoreTemp) -or ((Normalize-Ver (Read-AsarPackageVersion $restoreTemp)) -ne $curNorm)) {
       exit 31
     }
+    Wait-AntigravityProcessesStopped
     Replace-FileSafely -TempFile $restoreTemp -DestFile $asarFile
+    Clear-StaleCodeCache
     Write-Host "  已从 $($res.Name) (v$($res.Version)) 安全还原官方英文原版。"
     exit 0
   } catch {
@@ -672,7 +739,9 @@ if ($action -eq 'install') {
     if ((Normalize-Ver (Read-AsarPackageVersion $stageTemp)) -ne $appNorm -or (Normalize-Ver (Read-AsarPackageVersion $asarFile)) -ne $appNorm) {
       exit 20
     }
+    Wait-AntigravityProcessesStopped
     Replace-FileSafely -TempFile $stageTemp -DestFile $asarFile
+    Clear-StaleCodeCache
     exit 0
   } catch {
     Write-Error $_.Exception.Message

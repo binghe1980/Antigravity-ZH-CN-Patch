@@ -38,7 +38,9 @@ function stopAntigravityProcesses({ platform = process.platform, run = execFileS
     let firstError = null;
     for (const imageName of ['Antigravity.exe', 'language_server.exe']) {
       try {
-        run('taskkill.exe', ['/F', '/IM', imageName], {
+        // Use /T to terminate child process trees (agy-node.cmd, MCP servers, sidecars)
+        // so lingering subprocesses do not keep app.asar or singleton locks open.
+        run('taskkill.exe', ['/F', '/T', '/IM', imageName], {
           stdio: 'ignore',
           windowsHide: true,
           timeout: DEFAULT_TIMEOUT_MS

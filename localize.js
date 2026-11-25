@@ -131,6 +131,37 @@ function resolveCachedAsarCliJs() {
   return null;
 }
 
+function buildCleanAppLaunchEnv(baseEnv = process.env) {
+  const cleanEnv = { ...(baseEnv || {}) };
+  for (const key of Object.keys(cleanEnv)) {
+    const upper = key.toUpperCase();
+    if (upper === 'ELECTRON_RUN_AS_NODE' || upper === 'ELECTRON_NO_ASAR') {
+      delete cleanEnv[key];
+    }
+  }
+  return cleanEnv;
+}
+
+async function renameWithWinRetry(src, dest, { attempts = 6, delayMs = 200 } = {}) {
+  const maxAttempts = process.platform === 'win32' ? Math.max(1, attempts) : 1;
+  for (let i = 0; i < maxAttempts; i++) {
+    try {
+      await fs.promises.rename(src, dest);
+      return;
+    } catch (error) {
+      const retryable = error && ['EPERM', 'EBUSY', 'EACCES'].includes(error.code);
+      if (!retryable || i === maxAttempts - 1) throw error;
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
+}
+
+function quoteWinCmdArg(arg) {
+  const s = String(arg);
+  if (!/[\s"&|<>^()%!*?]/.test(s)) return s;
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
 function runAsarCli(asarArgs) {
   const cachedCli = resolveCachedAsarCliJs();
   if (cachedCli) {
@@ -158,12 +189,21 @@ function runAsarCli(asarArgs) {
     }
   }
 
-  const npxBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  execFileSync(npxBin, ['--yes', ASAR_PACKAGE_SPEC, ...asarArgs], {
+  if (process.platform === 'win32') {
+    const quotedArgs = ['--yes', ASAR_PACKAGE_SPEC, ...asarArgs].map(quoteWinCmdArg);
+    execFileSync('npx.cmd', quotedArgs, {
+      cwd: WORKSPACE_DIR,
+      stdio: 'pipe',
+      timeout: 180000,
+      shell: true,
+    });
+    return;
+  }
+
+  execFileSync('npx', ['--yes', ASAR_PACKAGE_SPEC, ...asarArgs], {
     cwd: WORKSPACE_DIR,
     stdio: 'pipe',
     timeout: 180000,
-    shell: process.platform === 'win32',
   });
 }
 
@@ -2124,7 +2164,7 @@ async function runLocalizationWorkflow(appDir) {
 
       log('正在将修改后的文件重新打包为 app.asar...');
       try {
-        runAsarCli(['pack', tempExtractDir, tempAsar, '--unpack-dir', '**/chrome-devtools-mcp/**']);
+        runAsarCli(['pack', tempExtractDir, tempAsar, '--unpack-dir', '**/chrome-devtools-mcp']);
         log('打包成功。');
       } catch (e) {
         throw new Error('打包新 asar 失败: ' + e.message);
@@ -2133,7 +2173,7 @@ async function runLocalizationWorkflow(appDir) {
       log('正在部署新的汉化 app.asar...');
       try {
         fs.copyFileSync(tempAsar, stageAsar);
-        fs.renameSync(stageAsar, asarPath);
+        await renameWithWinRetry(stageAsar, asarPath);
         log('汉化 app.asar 部署成功！');
       } catch (e) {
         try { if (fs.existsSync(stageAsar)) fs.unlinkSync(stageAsar); } catch (_) {}
@@ -2200,7 +2240,7 @@ async function runRestoreWorkflow(appDir) {
     const stageRestore = path.join(resourcesDir, `app.asar.restore-${process.pid}-${Date.now()}`);
     try {
       fs.copyFileSync(backupPath, stageRestore);
-      fs.renameSync(stageRestore, asarPath);
+      await renameWithWinRetry(stageRestore, asarPath);
       if (backupPath !== legacyBackupPath && !fs.existsSync(legacyBackupPath)) {
         // Keep a convenient reference without duplicating if unnecessary; rename above already restored asarPath
       }
@@ -2426,7 +2466,12 @@ const server = http.createServer(async (req, res) => {
         const asarCheck = path.join(getResourcesDir(appDir), 'app.asar');
         log(`正在尝试启动 Antigravity 2.0 (路径: ${appPath})...`);
         if (fs.existsSync(appPath) && fs.existsSync(asarCheck)) {
-          spawn(appPath, [], { detached: true, stdio: 'ignore' }).unref();
+          spawn(appPath, [], {
+            cwd: appDir,
+            env: buildCleanAppLaunchEnv(),
+            detached: true,
+            stdio: 'ignore',
+          }).unref();
           log('Antigravity 2.0 启动指令已发送。');
           sendJson(res, 200, { success: true, logs });
         } else {
@@ -2709,6 +2754,7 @@ module.exports = {
   getHostUsername,
   getAppDir,
   getResourcesDir,
+  buildCleanAppLaunchEnv,
   cleanAppCache,
   applyTranslations,
   runLocalizationWorkflow,

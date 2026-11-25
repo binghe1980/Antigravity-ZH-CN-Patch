@@ -61,6 +61,20 @@ async function hashFile(filePath) {
   return hash.digest('hex');
 }
 
+async function renameWithWinRetry(src, dest, { attempts = 6, delayMs = 200 } = {}) {
+  const maxAttempts = process.platform === 'win32' ? Math.max(1, attempts) : 1;
+  for (let i = 0; i < maxAttempts; i++) {
+    try {
+      await fsp.rename(src, dest);
+      return;
+    } catch (error) {
+      const retryable = error && ['EPERM', 'EBUSY', 'EACCES'].includes(error.code);
+      if (!retryable || i === maxAttempts - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+}
+
 function assertCompatiblePackageVersion(targetAsarPath, candidatePath) {
   const v1 = readAsarPackageVersion(targetAsarPath);
   const v2 = readAsarPackageVersion(candidatePath);
@@ -189,7 +203,7 @@ function createPackageInstaller({
       if (await hashFile(asarPath) !== originalHash) throw failure('官方 app.asar 在准备期间发生变化，已暂停安装', 409);
       assertCompatiblePackageVersion(asarPath, stagePath);
       commitAttempted = true;
-      await fsp.rename(stagePath, asarPath);
+      await renameWithWinRetry(stagePath, asarPath);
       stageCreated = false;
       await regularFile(asarPath);
       if (await hashFile(asarPath) !== cache.sha256) throw failure('安装提交后的 SHA256 校验失败');
@@ -226,7 +240,7 @@ function createPackageInstaller({
               throw failure('目标在回滚准备期间被其它程序修改，已停止覆盖', 409);
             }
             if (beforeRollback !== originalHash) {
-              await fsp.rename(rollbackPath, asarPath);
+              await renameWithWinRetry(rollbackPath, asarPath);
               rollbackCreated = false;
             }
             if (await hashFile(asarPath) !== originalHash) throw failure('回滚后原文件校验失败');
