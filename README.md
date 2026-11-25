@@ -1,3 +1,5 @@
+![Google Antigravity 桌面客户端深度中文汉化补丁](docs/banner.jpg)
+
 # Antigravity-ZH-CN-Patch
 
 Google Antigravity 桌面客户端深度中文汉化补丁（已适配 **Antigravity v2.35.1+**）。
