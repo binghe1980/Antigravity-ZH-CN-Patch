@@ -4,6 +4,31 @@
 
 ---
 
+## v2.35.2 (2026-11-26) — 精准适配官方 2.35.2 版本：同步 AI 正文与行内代码隔离、智能体错误卡片汉化及 2.35.2 前端全量扫漏补齐
+
+### 1. 官方 v2.35.2 逐文件差异核验与原生解包规格对齐
+- **主进程 (`app.asar`) 与内嵌前端 (`language_server`) 逐文件比对**：基于本机官方 `Antigravity v2.35.2` 原版 `app.asar` 解包比对全部主进程 `dist/**` 模块与内嵌 548 项 Web UI 资产，确认 `dist/**` 结构保持完全兼容、`localize.js` 全部 231+ 处主进程补丁点实现 `0` 跳过 100% 命中。
+- **版本门禁与原生瘦身包重编**：同步将 `localize.js`（`CURRENT_VERSION` / `RELEASE_VERSION`）、`package.json`、`extracted/package.json`、`install_mac.sh`、`index.html` 与预编译 `app.asar.ready` 升至 **`2.35.2`**；沿用 `--unpack-dir "**/chrome-devtools-mcp"` 保持与官方 `app.asar.unpacked` 的解包头完全一致，产物精确为 **`7,944,249` 字节（`7.58 MiB`）**。
+
+### 2. 整合上游 v2.35.1 隔离修复、PR #86 错误卡片与 v2.35.2 Web UI 增量补漏（词典总计 4,965 键 0 重复）
+- **AI Markdown 正文与行内代码物理隔离（Issue #80）**：接入 `[data-markdown-root]` 全量隔离（白名单放行 `toast-notification` / `nux-card`）与 `CODE`/`PRE`/`KBD`/`SAMP`/`VAR` 祖先链/内联锚点保护，封堵 `Quote`/`Ask /btw` 在 AI 正文内穿透漏译，补齐独立小写 `log` 防误译与 `hasAttr` / `tryCombinedSentenceTranslation` 门禁。
+- **智能体错误卡片与故障排除指南链接汉化（PR #86）**：补全 `You can prompt the model to try again or start a new conversation if the error persists.` 与 `See our troubleshooting guide for more help.` 及其 3 节点 / React 6 节点组合句原位汉化。
+- **v2.35.2 Web UI 专项补漏（+40 条零重复词典、+4 组 `$`-安全动态前缀规则）**：针对 `2.35.2` 内嵌 `main.js` 扫描补全归档对话提示 (`This chat is archived.`)、返回首页 (`Go to Home`)、共享对话导入、外部应用打开确认、Context-Aware Access 内置浏览器拦截提示、文档/工件提示、Notebook 读写报错、浏览器交互审批失败、网络请求与快照恢复提示、侧边栏/文件树与账号切换/登录/PDF/应用视图错误动态前缀。
+
+### 3. 全链路验证与测试门禁
+- 新增并注册 `ticket-57-v2351-features.test.js`、`ticket-58-chat-markdown-skip.test.js`、`ticket-59-agent-error-card.test.js` 与 `ticket-60-v2352-features.test.js`；全工程 **67/67 组 TDD 自动化测试套件 100% ALL GREEN**。
+
+---
+
+## v2.35.1 (2026-11-25) — 同步适配官方 2.35.1：根治 AI 正文与行内代码误译 (Issue #80)、Windows 进程树与解包兼容加固及全量 Web UI 补漏
+
+### 1. 官方 v2.35.1 适配与 Windows 稳定性加固
+- 将核心版本元数据、macOS 一键安装脚本 `install_mac.sh` 与预编译 `app.asar.ready` 升至 `2.35.1`。
+- 加固 Windows 进程树清理、纯净启动环境、文件重命名重试机制与 `--unpack-dir "**/chrome-devtools-mcp"` ASAR 解包一致性。
+- 同步上游 `v2.35.1`（+86 条反馈/Hooks/组织 MCP 白名单/引导条款/AI 点数/轨迹统计/查看器/Git/调度静态词条、+16 组动态规则）与 `[data-markdown-root]` AI 正文物理隔离。
+
+---
+
 ## v2.35.0 (2026-11-24) — 全面适配官方 2.35.0 版本：收件箱模式与自动解决、插件权限管理页、语音听写多语言选择器、侧边提问继续新对话、引导与 WIF/授权码登录流及远程智能体升级
 
 ### 1. 官方 v2.35.0 主进程架构同步与全量补丁验收

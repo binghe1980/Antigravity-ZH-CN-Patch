@@ -4,6 +4,30 @@ This document tracks all version releases, core architecture adaptations, and fe
 
 ---
 
+## v2.35.2 (2026-11-26) — Official v2.35.2 Support: AI Markdown & Inline-Code Isolation, Agent Error Card Localization & v2.35.2 Web UI Gap Audit
+
+### 1. Official v2.35.2 Diff Verification & Slim Unpack-Parity Build
+- **Full Main-Process (`app.asar`) & Embedded Frontend (`language_server`) Audit**: Verified all upstream `v2.35.2` `dist/**` modules and all 548 embedded frontend assets against `v2.35.1`; confirmed full main-process structural compatibility with `0` skipped patches across all 231+ patch points in `localize.js`.
+- **Version Gate Alignment & Slim Archive Rebuild**: Bumped `localize.js` (`CURRENT_VERSION` / `RELEASE_VERSION`), `package.json`, `extracted/package.json`, `install_mac.sh`, `index.html`, and prebuilt `app.asar.ready` to **`2.35.2`**, packed with `--unpack-dir "**/chrome-devtools-mcp"` for exact `app.asar.unpacked` header parity at **`7,944,249` bytes (`7.58 MiB`)**.
+
+### 2. Upstream v2.35.1 Isolation & PR #86 Integration + v2.35.2 Web UI Coverage (`4,965` Zero-Duplicate Keys)
+- **AI Markdown & Inline Code Physical Isolation (Issue #80)**: Integrated `[data-markdown-root]` isolation (whitelisting `toast-notification` and `nux-card`) plus `CODE`/`PRE`/`KBD`/`SAMP`/`VAR` protection, `Quote`/`Ask /btw` leak fixes, standalone lowercase `log` guard, and `hasAttr` / `tryCombinedSentenceTranslation` hardening.
+- **Agent Error Card & Troubleshooting Guide Link (PR #86)**: Localized `You can prompt the model to try again or start a new conversation if the error persists.` and `See our troubleshooting guide for more help.` across single-node, 3-node, and 6-node React link structures.
+- **v2.35.2 Web UI Audit (+40 Zero-Duplicate Entries, +4 `$`-Safe Dynamic Rules)**: Added verified translations from `2.35.2` `main.js` covering archived chat banners (`This chat is archived.`), `Go to Home`, shared conversation import, external-app confirmation, Context-Aware Access browser blocks, artifact/notebook/PDF/app-view/sign-in/account-switch notices, browser interaction failures, and snapshot restore hints.
+
+### 3. Verification & Test Gate
+- Added and registered `ticket-57-v2351-features.test.js`, `ticket-58-chat-markdown-skip.test.js`, `ticket-59-agent-error-card.test.js`, and `ticket-60-v2352-features.test.js`; **67/67 TDD test suites 100% ALL GREEN**.
+
+---
+
+## v2.35.1 (2026-11-25) — Official v2.35.1 Adaptation, Windows Stability Hardening & AI Markdown Isolation
+
+- Aligned version metadata, `install_mac.sh`, and slim `app.asar.ready` to `2.35.1`.
+- Hardened Windows process tree termination, clean app launch environment, rename retries, and ASAR `--unpack-dir` parity.
+- Synced upstream `v2.35.1` (+86 dictionary keys, +16 `$`-safe dynamic rules) and Issue #80 Markdown/inline-code isolation.
+
+---
+
 ## v2.35.0 (2026-11-24) — Full Official v2.35.0 Support: Inbox Mode & Auto-Resolve, Plugin Permissions, Multi-Language Voice Dictation, Side Question Promotion, Onboarding/WIF Auth & Remote Agents
 
 ### 1. Official v2.35.0 Main-Process Sync & Patch Verification

@@ -2856,6 +2856,182 @@
       cacheSet(trimmed, fixed);
       return replaceTrimmed(text, trimmed, fixed);
     }
+
+    // ===== Antigravity v2.35.1 动态规则：队列无障碍通知/计划评论/Git 提交流/Hook 匹配/查看器/调度时间 =====
+    if (/^Message queued\.(?:\s+(\d+)\s+messages?\s+in\s+queue\.)?\s+(Sends after background work finishes\.|Sends after agent finishes working\.)\s+Actions available:\s*Send Now,\s*Edit,\s*Delete\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Message queued\.(?:\s+(\d+)\s+messages?\s+in\s+queue\.)?\s+(Sends after background work finishes\.|Sends after agent finishes working\.)\s+Actions available:\s*Send Now,\s*Edit,\s*Delete\.$/i,
+        (_m, n, when) => {
+          const whenCn = /background work/i.test(when) ? '将在后台工作完成后发送。' : '将在智能体完成当前工作后发送。';
+          return '消息已加入队列。' + (n ? '队列中共有 ' + n + ' 条消息。' : '') + whenCn + '可用操作：立即发送、编辑、删除。';
+        }
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Proceed with implementation plan and (\d+) comments?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Proceed with implementation plan and (\d+) comments?$/i,
+        (_m, n) => '按实施计划继续并附带 ' + n + ' 条评论'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Show (\d+) earlier steps?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Show (\d+) earlier steps?$/i,
+        (_m, n) => '显示更早的 ' + n + ' 个步骤'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Turn (\d+) of (\d+)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Turn (\d+) of (\d+)$/i,
+        (_m, cur, total) => '第 ' + cur + ' / ' + total + ' 回合'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Go to turn (\d+) of (\d+)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Go to turn (\d+) of (\d+)$/i,
+        (_m, cur, total) => '跳转到第 ' + cur + ' / ' + total + ' 回合'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+) Files? With Changes$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^(\d+) Files? With Changes$/i,
+        (_m, n) => n + ' 个已更改文件'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^All changes since (.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^All changes since (.+)$/,
+        (_m, ref) => '自 ' + ref + ' 以来的所有更改'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Push (\d+) commits? to (.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Push (\d+) commits? to (.+)$/,
+        (_m, n, remote) => '推送 ' + n + ' 个提交到 ' + remote
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Pushed (\d+) commits? to (.+)\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Pushed (\d+) commits? to (.+)\.$/,
+        (_m, n, remote) => '已推送 ' + n + ' 个提交到 ' + remote + '。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Pushed to (.+)\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Pushed to (.+)\.$/,
+        (_m, remote) => '已推送到 ' + remote + '。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Publish (.+) to origin$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Publish (.+) to origin$/,
+        (_m, branch) => '将 ' + branch + ' 发布到 origin'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Published (.+) to origin\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Published (.+) to origin\.$/,
+        (_m, branch) => '已将 ' + branch + ' 发布到 origin。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Hook will only trigger if the tool name (matches|starts with) (.+)\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Hook will only trigger if the tool name (matches|starts with) (.+)\.$/,
+        (_m, op, pat) => op === 'matches'
+          ? ('仅当工具名称匹配 ' + pat + ' 时才会触发 Hook。')
+          : ('仅当工具名称以 ' + pat + ' 开头时才会触发 Hook。')
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^⚠️\s*Failed to render (LaTeX|Mermaid diagram):\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^⚠️\s*Failed to render (LaTeX|Mermaid diagram):\s*(.+)$/,
+        (_m, kind, msg) => '⚠️ 渲染 ' + (kind === 'LaTeX' ? 'LaTeX ' : 'Mermaid 图表') + '失败：' + msg
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Every hour(?: at :(\d{2}))?(?:\s*·\s*(.+))?$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Every hour(?: at :(\d{2}))?(?:\s*·\s*(.+))?$/,
+        (_m, min, tz) => '每小时' + (min ? ' :' + min : '') + (tz ? ' · ' + tz : '')
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Today|Tomorrow|Yesterday)\s+(\d{1,2}:\d{2}(?:\s*[AP]M)?)$/i.test(trimmed)) {
+      const dayWordMap = { today: '今天', tomorrow: '明天', yesterday: '昨天' };
+      const fixed = trimmed.replace(
+        /^(Today|Tomorrow|Yesterday)\s+(\d{1,2}:\d{2}(?:\s*[AP]M)?)$/i,
+        (_m, d, t) => (dayWordMap[d.toLowerCase()] || d) + ' ' + t
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    // ===== Antigravity v2.35.2 动态规则：登录/账户切换/应用视图与 PDF 加载错误前缀 =====
+    if (/^Sign-in failed:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Sign-in failed:\s*(.+)$/, (_m, msg) => '登录失败：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Couldn't switch accounts:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Couldn't switch accounts:\s*(.+)$/, (_m, msg) => '无法切换账户：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Could not load the app view:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Could not load the app view:\s*(.+)$/, (_m, msg) => '无法加载应用视图：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Unable to load PDF:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Unable to load PDF:\s*(.+)$/, (_m, msg) => '无法加载 PDF：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
     // 5. 大小写不敏感词典查找与末尾标点剥离重拼（O(1)，命中写入 stringCache）
     const caseInsensitiveHit = lowerDictionary.get(trimmed.toLowerCase());
     if (caseInsensitiveHit !== undefined) {
@@ -2924,6 +3100,11 @@
         continue;
       }
       const lw = tok.toLowerCase();
+      // 独立纯小写 "log" 避免在未识别正文容器中误译为“日志”，多词组合（如 Error Log）仍正常生效
+      if (words.length === 1 && tok === 'log') {
+        cacheSet(trimmed, trimmed);
+        return text;
+      }
       let wordCn;
       if (Object.prototype.hasOwnProperty.call(coreWords, lw)) {
         wordCn = coreWords[lw];
@@ -2993,6 +3174,47 @@
     const tag = (el.tagName || '').toUpperCase();
     if ((tag === 'B' || tag === 'P') && el.parentElement && el.parentElement.classList && el.parentElement.classList.contains('o2-goal')) {
       return true;
+    }
+    return false;
+  }
+
+  const CODE_OR_LITERAL_TAGS = new Set([
+    'CODE', 'PRE', 'KBD', 'SAMP', 'VAR', 'SVG', 'MATH', 'MJX-CONTAINER'
+  ]);
+  const UI_MARKDOWN_CHROME_TESTIDS = new Set([
+    'toast-notification', 'nux-card'
+  ]);
+  const PROTECTED_MARKDOWN_TESTIDS = new Set([
+    'markdown-code-block-preview', 'automation-instructions-markdown'
+  ]);
+
+  function hasAncestorTestId(el, allowedSet) {
+    let cur = el;
+    while (cur && cur !== document.body) {
+      if (cur.nodeType === Node.ELEMENT_NODE && cur.getAttribute) {
+        const tid = cur.getAttribute('data-testid');
+        if (tid && allowedSet.has(tid)) return true;
+      }
+      cur = cur.parentElement;
+    }
+    return false;
+  }
+
+  function hasAttr(el, name) {
+    if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
+    if (el.hasAttribute && el.hasAttribute(name)) return true;
+    const val = el.getAttribute ? el.getAttribute(name) : null;
+    return val !== null && val !== undefined;
+  }
+
+  function isProtectedMarkdownElement(el) {
+    if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
+    const tid = el.getAttribute ? el.getAttribute('data-testid') : null;
+    if (tid && PROTECTED_MARKDOWN_TESTIDS.has(tid)) {
+      return true;
+    }
+    if (hasAttr(el, 'data-markdown-root')) {
+      return !hasAncestorTestId(el, UI_MARKDOWN_CHROME_TESTIDS);
     }
     return false;
   }
@@ -3126,7 +3348,7 @@
 
   function isProjectGlyphIconNode(el) {
     if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
-    if (el.getAttribute && el.getAttribute('data-project-glyph') !== null) {
+    if (hasAttr(el, 'data-project-glyph')) {
       return true;
     }
     // 对话悬浮卡片（b6 组件）：<span class="shrink-0 flex items-center"><svg|span.google-symbols data-project-glyph="folder|cloud"/></span>
@@ -3139,7 +3361,7 @@
         if (ch.nodeType === Node.TEXT_NODE) {
           if ((ch.nodeValue || '').trim()) return false;
         } else if (ch.nodeType === Node.ELEMENT_NODE) {
-          if (ch.getAttribute && ch.getAttribute('data-project-glyph') !== null) {
+          if (hasAttr(ch, 'data-project-glyph')) {
             hasGlyphChild = true;
           } else {
             return false;
@@ -3154,7 +3376,7 @@
   function isProjectGlyphLabelSelf(cur) {
     if (!cur || cur.nodeType !== Node.ELEMENT_NODE) return false;
     // 保护回退为 google-symbols 字体图标的 [data-project-glyph] 节点自身（避免 ligature 如 "folder"/"cloud" 被译为汉字破坏图标）
-    if (cur.getAttribute && cur.getAttribute('data-project-glyph') !== null) {
+    if (hasAttr(cur, 'data-project-glyph')) {
       return true;
     }
     if ((cur.tagName || '').toUpperCase() !== 'SPAN') {
@@ -3396,20 +3618,16 @@
       return false;
     }
 
-    // 选中文本快捷引用气泡（Quote）及 /btw 提问气泡（Ask /btw）特权放行（依赖动态文本，不写 skipCache）
+    // 选中文本快捷引用气泡（Quote / Ask /btw）与执行步骤状态药丸（必须校验不处于代码/Markdown正文/用户消息/思考链等受保护容器内，依赖动态文本不写 skipCache）
     const textContent = (element.innerText || element.textContent || '').trim();
-    if (/^(?:Quote|Ask(?:\s+|\s*\/\s*)btw)(?:\s+(?:Ctrl|Cmd)(?:\+[a-zA-Z0-9]+)+)?$/i.test(textContent)) {
-      return false;
-    }
-
-    // 执行步骤状态药丸（已在上方拦截 CODE/PRE，绝不误伤 Markdown 行内代码；依赖动态文本不写 skipCache）
+    const isQuoteOrBtwBubble = textContent.length <= 40 && /^(?:Quote|Ask(?:\s+|\s*\/\s*)btw)(?:\s+(?:Ctrl|Cmd)(?:\+[a-zA-Z0-9]+)+)?$/i.test(textContent);
     const isActionPill = textContent.length <= 40 && /^(Explored|Exploring|Ran|Run|Running|Viewed|Viewing|Edited|Editing|Thought|Thinking|Working|Done|Analyzed|Analyzing|Created|Creating|Deleted|Deleting|Waiting|Rejected|Errored|Completed|Used)(\s+(command|commands|files?|tools?|artifacts?))?$/i.test(textContent);
-    if (isActionPill) {
+    if (isQuoteOrBtwBubble || isActionPill) {
       let inProtectedAncestor = false;
       let checkCur = element;
       while (checkCur && checkCur !== document.body) {
         const curTag = (checkCur.tagName || '').toUpperCase();
-        if (curTag === 'CODE' || curTag === 'PRE' || curTag === 'SVG' || curTag === 'MATH' || isSwarmProtectedElement(checkCur)) {
+        if (CODE_OR_LITERAL_TAGS.has(curTag) || isSwarmProtectedElement(checkCur) || isProtectedMarkdownElement(checkCur)) {
           inProtectedAncestor = true;
           break;
         }
@@ -3478,7 +3696,7 @@
       }
 
       const curTag = (cur.tagName || '').toUpperCase();
-      if (curTag === 'PRE' || curTag === 'CODE' || curTag === 'SVG' || curTag === 'MATH' || curTag === 'MJX-CONTAINER') {
+      if (CODE_OR_LITERAL_TAGS.has(curTag) || isProtectedMarkdownElement(cur)) {
         shouldSkip = true;
         break;
       }
@@ -3558,6 +3776,7 @@
   // 组合句翻译兜底（支持原英文锚点与已翻译内联锚点双向定位，不增删任何 Element 节点）
   function tryCombinedSentenceTranslation(element) {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
+    if (shouldSkipNode(element)) return false;
     const children = Array.prototype.slice.call(element.childNodes);
     if (children.length < 2) return false;
 
@@ -3573,7 +3792,14 @@
         if (!child.childNodes || child.childNodes.length !== 1 || !child.firstChild || child.firstChild.nodeType !== Node.TEXT_NODE) {
           return false;
         }
-        slots.push({ type: 'anchor', node: child, anchorText: child.firstChild.nodeValue.trim() });
+        const anchorTag = (child.tagName || '').toUpperCase();
+        const isProtectedAnchor = CODE_OR_LITERAL_TAGS.has(anchorTag) || shouldSkipNode(child);
+        slots.push({
+          type: 'anchor',
+          node: child,
+          anchorText: child.firstChild.nodeValue.trim(),
+          isProtectedAnchor
+        });
       } else {
         return false;
       }
@@ -3626,7 +3852,7 @@
       let idx = translated.indexOf(a.anchorText, probe);
       let matchedText = a.anchorText;
       let shouldTranslateAnchor = false;
-      if (idx < 0) {
+      if (idx < 0 && !a.isProtectedAnchor) {
         const anchorCn = translateString(a.anchorText);
         if (anchorCn && anchorCn !== a.anchorText && anchorCn.length >= 2) {
           idx = translated.indexOf(anchorCn, probe);
@@ -3680,8 +3906,7 @@
           out.push(ch);
         }
       } else if (ch.nodeType === Node.ELEMENT_NODE) {
-        const tag = (ch.tagName || '').toUpperCase();
-        if (tag === 'SVG' || tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'MATH' || tag === 'CODE' || tag === 'PRE') {
+        if (isNonComposerProtectedSelf(ch)) {
           continue;
         }
         collectSafeLeafTextNodes(ch, out);
@@ -3723,7 +3948,7 @@
   function isNonComposerProtectedSelf(cur) {
     if (!cur || cur.nodeType !== Node.ELEMENT_NODE) return false;
     const curTag = (cur.tagName || '').toUpperCase();
-    if (curTag === 'PRE' || curTag === 'CODE' || curTag === 'SVG' || curTag === 'MATH' || curTag === 'MJX-CONTAINER' || curTag === 'SCRIPT' || curTag === 'STYLE' || curTag === 'NOSCRIPT' || isSwarmProtectedElement(cur)) {
+    if (CODE_OR_LITERAL_TAGS.has(curTag) || curTag === 'SCRIPT' || curTag === 'STYLE' || curTag === 'NOSCRIPT' || isSwarmProtectedElement(cur) || isProtectedMarkdownElement(cur)) {
       return true;
     }
     if (isUserProjectHeader(cur) || isProtectedProjectNameSelf(cur)) {

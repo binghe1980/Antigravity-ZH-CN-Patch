@@ -2,19 +2,19 @@
 
 # Antigravity-ZH-CN-Patch
 
-Google Antigravity 桌面客户端深度中文汉化补丁（已适配 **Antigravity v2.35.1+**）。
+Google Antigravity 桌面客户端深度中文汉化补丁（已适配 **Antigravity v2.35.2+**）。
 
 [![GitHub release](https://img.shields.io/github/v/release/binghe1980/Antigravity-ZH-CN-Patch?style=flat&color=blue)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/releases/latest)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch)
-[![Package Size](https://img.shields.io/badge/ASAR%20Size-~7.56%20MiB%20(Official%20Slim)-success)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/releases)
+[![Package Size](https://img.shields.io/badge/ASAR%20Size-~7.58%20MiB%20(Official%20Slim)-success)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/releases)
 [![Node Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2018.18.0-informational)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Antigravity-ZH-CN-Patch** 是一款专为 **Google Antigravity** 桌面客户端打造的深度中文汉化补丁，提供开箱即用的预制 `app.asar` 汉化包、跨平台一键安装脚本、本地可视化控制中心及完整的本地动态注入能力。
 
-- **开箱即用，全平台支持**：已精准适配 **Antigravity v2.35.1**，按官方原生轻量规格（约 7.56 MiB）打包，支持 macOS / Windows / Linux 一键安装、可视化控制中心与智能体自动部署。
-- **深度覆盖，体验自然**：内置 `4,830+` 条零重复中文词条与动态规则，完整覆盖主界面、设置面板、权限沙盒、语音听写、规划模式、`Swarm` 多智能体及原生菜单，并保留模型名等专业术语英文原生。
-- **安全无损，随时可还原**：物理级跳过代码编辑器、输入框与对话正文；安装前严格校验版本与 SHA-256 并自动备份 `app.asar.bak`，防白屏且支持一键无损还原，通过 63/63 组自动化回归测试。
+- **开箱即用，全平台支持**：已精准适配 **Antigravity v2.35.2**，按官方原生轻量规格（约 7.58 MiB）打包，支持 macOS / Windows / Linux 一键安装、可视化控制中心与智能体自动部署。
+- **深度覆盖，体验自然**：内置 `4,965` 条零重复中文词条与动态规则，完整覆盖主界面、设置面板、权限沙盒、语音听写、规划模式、`Swarm` 多智能体、智能体错误卡片与原生菜单，并保留模型名等专业术语英文原生。
+- **安全无损，随时可还原**：物理级隔离代码编辑器、输入框、AI Markdown 正文与行内代码；安装前严格校验版本与 SHA-256 并自动备份 `app.asar.bak`，防白屏且支持一键无损还原，通过 67/67 组自动化回归测试。
 - **纯粹透明，仅限显示层**：严格只作用于前端 UI 文案与本地原生菜单，不修改任何账号认证、网络通信、配额计费或后端服务逻辑。
 
 > [最新 Release 下载](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/releases/latest) · [问题反馈 (Issues)](https://github.com/binghe1980/Antigravity-ZH-CN-Patch/issues) · [致谢上游社区](https://github.com/antigravity-cn-community/Antigravity-Chinese-Localization)
@@ -25,18 +25,18 @@ Google Antigravity 桌面客户端深度中文汉化补丁（已适配 **Antigra
 
 | 维度 | 特性说明 |
 | :--- | :--- |
-| **精准适配 v2.35.1** | 基于官方原版 `Antigravity v2.35.1` 的 `app.asar` 解包注入并按原生轻量规格（约 7.56 MiB，`--unpack-dir '**/chrome-devtools-mcp/**'`）重新打包，版本号与原生结构完全一致。 |
-| **全界面深度覆盖** | 覆盖 `4,830+` 条零重复中文词条与动态规则，包含收件箱模式 (`Inbox Mode`)、插件权限管理、多语言语音听写、规划模式、系统设置、权限沙盒、Remote SSH、Computer Use、`Swarm` 多智能体与 `plugin://` 子框架，以及全端原生应用菜单/右键菜单/托盘。 |
-| **物理级编辑区免疫** | 智能跳过输入框 (`INPUT`/`TEXTAREA`)、富文本编辑区、Monaco 代码编辑器、Diff 视图与 AI/用户对话正文；仅操作叶子文本节点，不破坏 React Fiber 结构。 |
+| **精准适配 v2.35.2** | 基于官方原版 `Antigravity v2.35.2` 的 `app.asar` 解包注入并按原生轻量规格（约 7.58 MiB，`--unpack-dir '**/chrome-devtools-mcp'`）重新打包，版本号与原生解包结构完全一致。 |
+| **全界面深度覆盖** | 覆盖 `4,965` 条零重复中文词条与动态规则，包含收件箱模式 (`Inbox Mode`)、插件权限管理、多语言语音听写、规划模式、系统设置、权限沙盒、Hooks、Remote SSH、Computer Use、`Swarm` 多智能体与 `plugin://` 子框架，以及全端原生应用菜单/右键菜单/托盘。 |
+| **物理级编辑区与正文免疫** | 智能跳过输入框 (`INPUT`/`TEXTAREA`)、富文本编辑区、Monaco 代码编辑器、Diff 视图、AI Markdown 正文 (`[data-markdown-root]`) 与行内代码 (`CODE`/`PRE`/`KBD`/`SAMP`/`VAR`)；仅操作叶子文本节点，不破坏 React Fiber 结构。 |
 | **专业术语原生保留** | 模型名称（Gemini 4 / Orchestrator / Claude 等）、思考链过程（Thinking/Thought）及相对时间保持英文原生，避免机翻歧义。 |
-| **安全备份与防白屏** | 安装前严格校验本机客户端版本，自动备份纯净官方原版为 `app.asar.bak`，并通过暂存 + SHA-256 校验实现原子替换；全套 **63/63 组 TDD 回归测试** 100% 通过。 |
+| **安全备份与防白屏** | 安装前严格校验本机客户端版本，自动备份纯净官方原版为 `app.asar.bak`，并通过暂存 + SHA-256 校验实现原子替换；全套 **67/67 组 TDD 回归测试** 100% 通过。 |
 | **仅限 UI 显示层** | 严格仅作用于前端显示文案与本地原生菜单，**不修改**任何账号认证、网络通信、配额计费、安全校验或后端服务逻辑。 |
 
 ---
 
 ## 快速安装指南
 
-> **重要提醒**：使用预制 `app.asar` 前，请务必确认你本机的 Antigravity 客户端版本与 Release 版本**完全一致**（当前为 `v2.35.1`）。版本不匹配时请勿强行覆盖，可改用下方的“本地动态注入”模式或等待新版本适配。
+> **重要提醒**：使用预制 `app.asar` 前，请务必确认你本机的 Antigravity 客户端版本与 Release 版本**完全一致**（当前为 `v2.35.2`）。版本不匹配时请勿强行覆盖，可改用下方的“本地动态注入”模式或等待新版本适配。
 
 ### 方式一：智能体一键安全安装（推荐）
 
@@ -60,7 +60,7 @@ chmod +x install_mac.sh
 ./install_mac.sh
 ```
 脚本会自动：
-1. 检查本机 Antigravity 是否为 `2.35.1`；
+1. 检查本机 Antigravity 是否为 `2.35.2`；
 2. 校验本地 `app.asar.ready` 的 SHA-256；
 3. 延迟 2 秒后关闭 Antigravity，备份原版到 `/Applications/Antigravity.app/Contents/Resources/app.asar.bak`；
 4. 原子覆盖 `app.asar` 并自动重新打开客户端。
@@ -139,7 +139,7 @@ node localize.js --apply-only
 ## 本地测试与二次开发
 
 ```bash
-# 运行全部 63 组自动化回归测试（含语法检查与 app.asar.ready 完整性验收）
+# 运行全部 67 组自动化回归测试（含语法检查与 app.asar.ready 完整性验收）
 npm test
 ```
 
