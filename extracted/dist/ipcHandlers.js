@@ -1132,7 +1132,6 @@ function registerIpcHandlers(storageManager, deps = {}) {
 }
 
 
-
 const contextMenuTranslationMap = {
   // 基础剪贴板与选择
   'Cut': '剪切',

@@ -4,6 +4,22 @@ This document tracks all version releases, core architecture adaptations, and fe
 
 ---
 
+## v2.36.0 (2026-11-28) — Official v2.36.0 Support: Enterprise Billing, Environment Secrets, Feeds, Chat Threads & Search, Git Worktree & React Multi-Node Stitching
+
+### 1. Official v2.36.0 Diff Verification & Slim Unpack-Parity Build
+- **Clean Official `dist/**` & Embedded `language_server` Frontend Audit**: Audited the clean upstream `Antigravity v2.36.0` archive (`isLocalizedAsar === false`) across all main-process `dist/**` modules and all 548 embedded `language_server` Web UI assets (plus Swarm HTML/JS). Confirmed all main-process patch points hit with **`0` skips**, with all `v2.36.0` upstream UI additions residing in the embedded frontend.
+- **Version Gate Alignment & Slim Archive Rebuild**: Bumped `localize.js` (`CURRENT_VERSION` / `RELEASE_VERSION`), `package.json`, `extracted/package.json`, `install_mac.sh`, `index.html`, and prebuilt `app.asar.ready` to **`2.36.0`**, packed from the official extracted tree with `--unpack-dir "**/chrome-devtools-mcp"` for exact `app.asar.unpacked` header parity at **`8,045,301` bytes (`7.67 MiB`)**.
+
+### 2. v2.36.0 Web UI Coverage & Engine Upgrades (`5,232` Zero-Duplicate Keys, +57 `$`-Safe Dynamic Rules)
+- **Full Coverage for v2.36.0 Workflows (+267 Zero-Duplicate Entries)**: Localized enterprise billing, license allocation, prepaid wallet (`Organization prepaid wallet is empty`), Enterprise Gateway & Application Default Credentials (`ADC`) notices; Environment variables, Network secrets & scope conflict notices; Feeds, Deliverables, Remote Control & automation credential expiry/running states; Chat Threads, reactions, quiet FYI delivery & in-conversation search; `Fork in New Git Worktree`, `Workspace > Restore to Snapshot` & GitHub CLI auth; MCP server parameter/auth/tool toggles, `Untrusted sidecar`, CEL filters, table preview limits, and embedded browser / Password Alert warnings.
+- **57 Callback-Only `$`-Safe Dynamic Rules & Precedence Fixes**: Added idempotent callback dynamic rules (avoiding `$1`/`$&` replacement pitfalls) for worker timers, remote port notices, cert errors, thread/reply counts, env/secret conflicts, MCP server auth/configs, and spawned origin banners, plus static `"Skipped command"` dictionary precedence.
+- **Multi-TextNode Anchor & React Fragment Stitching (`tryCombinedSentenceTranslation`)**: Extended child anchor extraction for multi-TextNode `<a>` links (`Google Antigravity/Jetski Terms of Service`) and added 2/3/4/6-TextNode React fragment handlers (`Project ID:`, `Location:`, `No matching`, Onboarding terms/ads/telemetry/newsletters, `No settings match`, `No messages matching`, `Hide non-admin`, `Show all`, `Restore ... cleared`, `Reset (... cleared)`, `Available for ... project`, `Searching N loaded message(s)`).
+
+### 3. Verification & Test Gate
+- Added and registered `ticket-61-v2360-features.test.js`; **68/68 TDD test suites 100% ALL GREEN**, with full `node --check` across `extracted/dist/**/*.js` and `bash -n install_mac.sh` passing.
+
+---
+
 ## v2.35.2 (2026-11-26) — Official v2.35.2 Support: AI Markdown & Inline-Code Isolation, Agent Error Card Localization & v2.35.2 Web UI Gap Audit
 
 ### 1. Official v2.35.2 Diff Verification & Slim Unpack-Parity Build

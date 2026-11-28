@@ -926,7 +926,6 @@ if (!isRemoteWindow) {
     installWcvThreeLayerHoleReporter();
 }
 
-
 // Antigravity 2.0 Chinese Localization Engine Enhanced
 (function() {
   if (typeof window !== 'undefined') {
@@ -5899,7 +5898,274 @@ if (!isRemoteWindow) {
     "No compatible devices found.": "未找到兼容设备。",
     "Sign in to an app once and your agent can use it on any device. Open an app to see the account it uses or to disconnect it.": "只需登录应用一次，您的智能体即可在任意设备上使用。打开应用可查看其使用的账户或断开连接。",
     "Boolean AND, OR, and negation": "布尔与 (AND)、或 (OR) 及非运算",
-    "Sidecar feature is not available.": "Sidecar 功能不可用。"
+    "Sidecar feature is not available.": "Sidecar 功能不可用。",
+    "Billing model": "计费模式",
+    "Available licenses": "可用许可证",
+    "Other License": "其他许可证",
+    "Toggle Google Cloud projects": "展开/收起 Google Cloud 项目列表",
+    "No license available for this project and location": "此项目和位置没有可用的许可证",
+    "Failed to inspect license for this project": "检查此项目的许可证失败",
+    "Contact your administrator to set up Gemini Enterprise for this project": "请联系您的管理员为此项目配置 Gemini Enterprise",
+    "Auto-assignment not configured": "未配置自动分配",
+    "Verify that these licenses were provided by your administrator and that you trust the project ID before proceeding. Account activity and data may be logged by your organization.": "继续前请确认这些许可证由您的管理员提供且您信任该项目 ID。您的账户活动和数据可能会被所在组织记录。",
+    "Your Antigravity use will be associated with provided project. Make sure you trust the project ID before proceeding. Account activity and data may be logged by your organization.": "您对 Antigravity 的使用将与所提供的项目关联。继续前请确认您信任该项目 ID。您的账户活动和数据可能会被所在组织记录。",
+    "You are logged in using Application Default Credentials (ADC). To log out, undo any changes to ~/.gemini/config/config.json (or unset AGY_ADC_AUTH if launched from terminal) and restart the application.": "您当前正在使用应用默认凭据 (ADC) 登录。如需退出登录，请撤销对 ~/.gemini/config/config.json 的更改（或若从终端启动请取消设置 AGY_ADC_AUTH），然后重启应用。",
+    "You are logged in using environment credentials and cannot sign out from the application.": "您当前正在使用环境凭据登录，无法从应用内退出登录。",
+    "Enterprise Gateway": "企业网关",
+    "Authenticated via Enterprise Gateway": "已通过企业网关身份验证",
+    "Project ID": "项目 ID",
+    "Project ID:": "项目 ID：",
+    "Organization prepaid wallet is empty": "组织预付费钱包余额已耗尽",
+    "Your organization has run out of Antigravity funds. Prompt generation is paused until your administrator adds funds.": "您所在组织的 Antigravity 额度已用完。在管理员充值之前，提示词生成已暂停。",
+    "Google Antigravity - Experience liftoff": "Google Antigravity - 开启智能体开发体验",
+    "Org required": "组织强制要求",
+    "Org recommended": "组织推荐启用",
+    "Add Environment Variable": "添加环境变量",
+    "Add Network Secret": "添加网络密钥",
+    "Environment Variable": "环境变量",
+    "Network Secret": "网络密钥",
+    "Environment variables": "环境变量",
+    "Network secrets": "网络密钥",
+    "Available directly inside your environment. Code running in the environment can read these values.": "直接在您的运行环境中可用。在环境中运行的代码可以读取这些值。",
+    "Kept outside your environment and sent only on requests to allowed hosts.": "保存在您的运行环境之外，仅在向允许的主机发起请求时发送。",
+    "Code in the environment can read this value directly. Use Network Secrets for API keys instead.": "环境中的代码可以直接读取此值。如为 API 密钥，请改用网络密钥。",
+    "Paste a single KEY=VALUE line or fill fields below": "粘贴单行 KEY=VALUE 或填写下方字段",
+    "Paste .env": "粘贴 .env",
+    "Paste .env entries": "粘贴 .env 条目",
+    "Parse .env": "解析 .env",
+    "e.g. App Environment": "例如：应用环境",
+    "e.g. Service API Key": "例如：服务 API 密钥",
+    "New value": "新值",
+    "Value": "值",
+    "Enter value (hidden after saving; multiline supported)": "输入值（保存后隐藏；支持多行）",
+    "New secret value": "新密钥值",
+    "Secret value": "密钥值",
+    "Paste secret key (hidden after saving)": "粘贴密钥（保存后隐藏）",
+    "Allowed hosts": "允许的主机",
+    "Auth format": "认证格式",
+    "Header name": "请求头名称",
+    "Cookie name": "Cookie 名称",
+    "Query param": "查询参数",
+    "Header prefix (optional)": "请求头前缀（可选）",
+    "Username (optional)": "用户名（可选）",
+    "Env var (optional)": "环境变量（可选）",
+    "Custom Header": "自定义请求头",
+    "Global (all projects)": "全局（所有项目）",
+    "Save Variable": "保存变量",
+    "Save Secret": "保存密钥",
+    "Replace Variable": "替换变量",
+    "Replace Secret": "替换密钥",
+    "+ Add variable": "+ 添加变量",
+    "+ Add secret": "+ 添加密钥",
+    "Delete Environment Variable": "删除环境变量",
+    "Delete Network Secret": "删除网络密钥",
+    "Deleted environment variables cannot be recovered.": "已删除的环境变量无法恢复。",
+    "Deleted secrets cannot be recovered.": "已删除的密钥无法恢复。",
+    "No environment variables saved for this project yet.": "此项目尚未保存任何环境变量。",
+    "No global environment variables saved yet.": "尚未保存任何全局环境变量。",
+    "No network secrets saved for this project yet.": "此项目尚未保存任何网络密钥。",
+    "No global network secrets saved yet.": "尚未保存任何全局网络密钥。",
+    "Configure global network secrets and environment variables for your remote environments.": "为您的远程环境配置全局网络密钥与环境变量。",
+    "Configure global network secrets for your remote environments.": "为您的远程环境配置全局网络密钥。",
+    "Saved securely. Secret values are hidden after saving.": "已安全保存。密钥值在保存后将被隐藏。",
+    "Secret value is required.": "密钥值为必填项。",
+    "At least one allowed host is required.": "至少需要填写一个允许的主机。",
+    "Name is required.": "名称为必填项。",
+    "Failed to save credential.": "保存凭据失败。",
+    "Failed to delete credential.": "删除凭据失败。",
+    "Feeds": "动态流",
+    "Filter feed": "筛选动态流",
+    "Earlier": "更早",
+    "Waiting on you": "等待您处理",
+    "Ready to review": "待审阅",
+    "Open linked conversation": "打开关联对话",
+    "Collapse panel": "收起面板",
+    "Expand panel": "展开面板",
+    "Back to split view": "返回分栏视图",
+    "Expand full view": "展开全屏视图",
+    "Resize details panel": "调整详情面板大小",
+    "Deliverable": "交付物",
+    "Open doc": "打开文档",
+    "Latest screenshot": "最新截图",
+    "Subagent worker": "子智能体工作线程",
+    "Parent thread": "父级线程",
+    "parent conversation": "父级对话",
+    "Reply, or approve with changes…": "回复，或附带修改意见批准…",
+    "Steer while it works…": "在运行过程中引导调整…",
+    "Ask for a follow-up…": "发起后续追问…",
+    "Pick this back up…": "继续此对话…",
+    "Grant permission": "授予权限",
+    "Ready for your review.": "已准备好供您审阅。",
+    "Needs permission to continue.": "需要权限才能继续。",
+    "Approved — continuing": "已批准 — 正在继续",
+    "Skipped command": "已跳过命令",
+    "Doc reviewed": "文档已审阅",
+    "Marked done": "已标记为完成",
+    "Run cleared": "已清除运行记录",
+    "Subagent cleared": "已清除子智能体记录",
+    "Mark done": "标为完成",
+    "Looks good": "看起来不错",
+    "Pick →": "选择 →",
+    "Comment on plan": "对计划添加评论",
+    "Respond": "立即响应",
+    "You're all caught up": "已全部处理完毕",
+    "Nothing in this view": "当前视图暂无内容",
+    "Nothing needs your attention right now. New deliverables, docs, and agent updates will appear here.": "目前没有需要您处理的事项。新的交付物、文档和智能体动态将显示在此处。",
+    "Everything here is handled. Switch back to All to see the rest of your stream.": "此处内容已全部处理完毕。切回“全部”即可查看其余动态流。",
+    "Ready for your review and sign-off.": "已准备好供您审阅并确认。",
+    "Document created and ready to review.": "文档已创建并可供审阅。",
+    "Published site ready to view.": "已发布的站点可供查看。",
+    "Deliverable ready to review.": "交付物可供审阅。",
+    "Scheduled run is waiting for your input.": "定时运行正在等待您的输入。",
+    "Scheduled automation is running now.": "定时自动化任务正在运行。",
+    "Scheduled run finished.": "定时运行已完成。",
+    "Cloud automation credentials expired — re-authorize to resume scheduled runs.": "云端自动化凭据已过期 — 请重新授权以恢复定时运行。",
+    "Cloud automation credentials expire soon — renew to keep runs going.": "云端自动化凭据即将过期 — 请续期以保持任务运行。",
+    "Subagent is blocked and needs your decision.": "子智能体受阻，需要您做出决定。",
+    "Subagent stopped with an error before finishing.": "子智能体在完成前因错误而停止。",
+    "Design Doc": "设计文档",
+    "Google Doc": "Google 文档",
+    "Google Sheet": "Google 表格",
+    "Google Doc · PRD": "Google 文档 · PRD",
+    "Google Doc · Design Doc": "Google 文档 · 设计文档",
+    "Get started with Remote Control": "开始使用远程控制",
+    "Error: No artifact URI provided in URL parameters.": "错误：URL 参数中未提供工件 URI。",
+    "Error: Artifacts from remote conversations are not available here.": "错误：此处无法访问来自远程对话的工件。",
+    "Add reaction": "添加表情回应",
+    "Open thread": "打开话题线程",
+    "Group chat · Thread": "群聊 · 话题线程",
+    "DM · Thread": "私聊 · 话题线程",
+    "Link copied to clipboard": "链接已复制到剪贴板",
+    "Show link previews": "显示链接预览",
+    "Hide link previews": "隐藏链接预览",
+    "Reply in Thread": "在话题中回复",
+    "Reply in thread": "在话题中回复",
+    "Thread reply": "话题回复",
+    "In thread": "话题内",
+    "Sent as a quiet FYI (delivered on next turn without waking agent)": "已作为静默参考发送（将在下一回合送达，不会唤醒智能体）",
+    "Hide matching messages list": "隐藏匹配消息列表",
+    "Show matching messages list": "显示匹配消息列表",
+    "Previous (older) match (Shift+Enter)": "上一个（更早）匹配项 (Shift+Enter)",
+    "Next (newer) match (Enter)": "下一个（更新）匹配项 (Enter)",
+    "Close search (Esc)": "关闭搜索 (Esc)",
+    "Load older": "加载更早消息",
+    "No matches on this page.": "当前页没有匹配项。",
+    "Load more results": "加载更多结果",
+    "Loading more results…": "正在加载更多结果…",
+    "Copied transcript": "已复制文字记录",
+    "Copy transcript": "复制文字记录",
+    "Summarizing call…": "正在生成通话摘要…",
+    "1 reply": "1 条回复",
+    "0+ matches": "0+ 个匹配",
+    "Fork in Current Folder": "在当前文件夹中分叉",
+    "Rewinds the conversation only. Files in this folder stay as they are now.": "仅回退对话本身。此文件夹中的文件将保持当前状态不变。",
+    "Fork in New Git Worktree": "在新建 Git Worktree 中分叉",
+    "Creates a git worktree of this repository, with a working copy of its own.": "为此仓库创建一个带独立工作副本的 git worktree。",
+    "Creating git worktree for the forked conversation...": "正在为分叉对话创建 git worktree...",
+    "Connect GitHub: Run gh auth login in a terminal": "连接 GitHub：请在终端中运行 gh auth login",
+    "Copy gh auth login command": "复制 gh auth login 命令",
+    "Token rejected": "令牌被拒绝",
+    "Repository access required": "需要仓库访问权限",
+    "Rate limited": "请求速率受限",
+    "Request failed": "请求失败",
+    "No commits yet": "尚无提交记录",
+    "Worktrees are a git feature. This folder is shared as is.": "Worktree 是 Git 的专属功能。此文件夹将按原样共享。",
+    "Workspace > Restore to Snapshot": "工作区 > 恢复到快照",
+    "quick pick": "快捷选择",
+    "Go to Workspace > Restore to Snapshot in the top menu.": "在顶部菜单中选择“工作区 > 恢复到快照”。",
+    "Select the latest snapshot from the quick pick.": "从快捷选择中选取最新的快照。",
+    "Automated safeguards help to protect your conversations from insecure or unsafe content. That being said, users should be aware of potential agentic risks, including data exfiltration.": "自动安全防护有助于保护您的对话免受不安全或有害内容的侵害。尽管如此，用户仍应注意潜在的智能体风险，包括数据外泄。",
+    "Allow Google to collect and use your Interactions data, subject to the Google Antigravity Terms of Service and Google Privacy Policy. You can control this from your settings at any point.": "允许 Google 根据《Google Antigravity 服务条款》和《Google 隐私权政策》收集并使用您的交互数据。您可随时在设置中调整此选项。",
+    "Allow Google to collect and use your Interactions data, subject to the Google Jetski Terms of Service and Google Privacy Policy. You can control this from your settings at any point.": "允许 Google 根据《Google Jetski 服务条款》和《Google 隐私权政策》收集并使用您的交互数据。您可随时在设置中调整此选项。",
+    "Google Jetski Terms of Service": "Google Jetski 服务条款",
+    "New Personal Agent": "新建个人智能体",
+    "New Team Agent": "新建团队智能体",
+    "Search by name or identity…": "按名称或身份搜索…",
+    "Non-admin": "非管理员",
+    "Untrusted sidecar": "未受信任的 Sidecar",
+    "Show or hide each member": "显示或隐藏各成员",
+    "Match case": "区分大小写",
+    "Match whole word": "全字匹配",
+    "Use regular expression": "使用正则表达式",
+    "Search Hosts…": "搜索主机…",
+    "Resize side question panel": "调整侧边提问面板大小",
+    "Dismiss artifact update notice": "关闭工件更新通知",
+    "Dismiss microphone warning": "关闭麦克风警告",
+    "Resuming environment…": "正在恢复环境…",
+    "Resume it to see its git changes.": "恢复环境以查看其 Git 更改。",
+    "Filter rows": "筛选行",
+    "Empty table": "空表格",
+    "File exceeds 512 KB table preview limit.": "文件超出 512 KB 表格预览上限。",
+    "Table exceeds 100 columns.": "表格列数超过 100 列上限。",
+    "Switch to default text direction": "切换为默认文本方向",
+    "Switch to RTL text direction": "切换为从右到左 (RTL) 文本方向",
+    "2x playback speed": "2 倍速播放",
+    "About embedding": "关于嵌入加载",
+    "Address bar": "地址栏",
+    "Address bar suggestions": "地址栏建议",
+    "Resume 1 comment draft": "继续编辑 1 条评论草稿",
+    "1 Draft": "1 条草稿",
+    "This page is taking longer than expected to load, or it may be blocking embedded views (via X-Frame-Options or CSP).": "此页面加载耗时超出预期，或者可能禁止了嵌入式视图（通过 X-Frame-Options 或 CSP）。",
+    "This page is taking longer than expected to load, or it may be blocking embedded views (via X-Frame-Options or CSP). We'll keep waiting, or you can open it directly in a new tab.": "此页面加载耗时超出预期，或者可能禁止了嵌入式视图（通过 X-Frame-Options 或 CSP）。我们将继续等待，您也可以直接在新标签页中打开。",
+    "Some sites block embedding (via X-Frame-Options or CSP) and will show a fallback message. Blocked-page detection is best-effort (based on a load timeout), so it may occasionally be wrong. Use \"Open in new tab\" if a page doesn't load.": "部分站点禁止嵌入（通过 X-Frame-Options 或 CSP）并将显示回退提示。受限页面检测基于加载超时尽力判断，偶尔可能存在误判。若页面未加载，请使用“在新标签页中打开”。",
+    "Settings search results": "设置搜索结果",
+    "This subagent was killed and can no longer be messaged.": "此子智能体已被终止，无法再向其发送消息。",
+    "Messaging subagents isn't supported in remote conversations yet.": "远程对话暂不支持向子智能体发送消息。",
+    "Side Question Conversation Log": "侧边提问对话日志",
+    "Live chat in progress": "实时对话进行中",
+    "Voice mode in progress": "语音模式进行中",
+    "Credentials expiring soon. Refresh credentials to keep this automation running": "凭据即将过期。请刷新凭据以保持此自动化任务运行",
+    "Credentials expired. This automation will not run until credentials are refreshed": "凭据已过期。刷新凭据前此自动化任务将无法运行",
+    "Credentials for one or more automations have expired.": "一个或多个自动化任务的凭据已过期。",
+    "Credentials for one or more automations expire in less than a week.": "一个或多个自动化任务的凭据将在一周内过期。",
+    "Plugins are unavailable until your organization's policy loads.": "在加载完您所在组织的策略前，插件暂不可用。",
+    "Disabled by your organization": "已被您的组织禁用",
+    "Turned off by your admin": "已被管理员关闭",
+    "Needs sign-in": "需要登录",
+    "Not responding": "无响应",
+    "Applies to /btw and messages sent after this turn": "适用于 /btw 及本回合之后发送的消息",
+    "Applies to messages sent after this turn": "适用于本回合之后发送的消息",
+    "Not available on your plan": "当前套餐不可用",
+    "Upgrade for access": "升级以获取访问权限",
+    "Allow Next Non-Corp Prompt": "允许下一条非公司提示词",
+    "Typing your corp password here may trigger a Password Alert reset.": "在此处输入公司密码可能会触发密码警报 (Password Alert) 重置。",
+    "Don't enter corp passwords": "切勿输入公司密码",
+    "Directory Viewer": "目录查看器",
+    "Virtual File Viewer": "虚拟文件查看器",
+    "Virtual File": "虚拟文件",
+    "Sidecar View": "Sidecar 视图",
+    "Generated image preview": "生成的图片预览",
+    "Always allowed in this project": "在此项目中始终允许",
+    "Remote Debugging Required": "需要开启远程调试",
+    "To use browser tools, you need to enable remote debugging:": "如需使用浏览器工具，您需要先启用远程调试：",
+    "If that machine is a cloudtop, reach it via": "如果该机器是 Cloudtop，请通过以下入口访问：",
+    "Enter a side question after /btw": "在 /btw 后输入侧边提问内容",
+    "Scroll turns up": "向上滚动回合",
+    "Scroll turns down": "向下滚动回合",
+    "Previous card": "上一张卡片",
+    "Next card": "下一张卡片",
+    "For Turn": "针对回合",
+    "Ask anything": "输入任何问题",
+    "Fallback Summary Used": "已使用回退摘要",
+    "Session Summary": "会话摘要",
+    "Goal Verification": "目标验证",
+    "Idle Guard Warning": "空闲保护警告",
+    "Event type": "事件类型",
+    "Ignore events emitted by automated review or robot accounts (groupagent-*).": "忽略由自动审查或机器人账号 (groupagent-*) 发出的事件。",
+    "Match when push_def equals or is a child of the given PushDef prefix.": "当 push_def 等于给定 PushDef 前缀或为其子节点时匹配。",
+    "Empty \"in []\" list literal is not allowed": "不允许使用空的 \"in []\" 列表字面量",
+    "Combined event_type clauses share no compatible event type": "组合的 event_type 子句之间没有兼容的事件类型",
+    "Combined filter clauses share no compatible event type": "组合的筛选子句之间没有兼容的事件类型",
+    "Selected event types conflict with event_type in CEL filter": "所选事件类型与 CEL 过滤器中的 event_type 冲突",
+    "The remote workspace is not running": "远程工作区未在运行",
+    "This skill came from the marketplace, so you can add it again whenever you need it.": "此技能来自扩展市场，您可以随时在需要时重新添加。",
+    "Updating will restart the server and apply the latest changes.": "更新将重启服务端并应用最新更改。",
+    "Working…": "正在工作…",
+    "1 tool": "1 个工具",
+    "1 file": "1 个文件",
+    "1 task": "1 个任务",
+    "1 subagent": "1 个子智能体",
+    "1 tool disabled": "已禁用 1 个工具"
 };
 
   const coreWords = {
@@ -9050,6 +9316,400 @@ if (!isRemoteWindow) {
       cacheSet(trimmed, fixed);
       return replaceTrimmed(text, trimmed, fixed);
     }
+
+    // ===== Antigravity v2.36.0 动态规则：企业计费/环境变量/Feeds/话题搜索/MCP/Sidecar/权限（全回调函数 $-安全） =====
+    if (/^Working\s*·\s*(\d+s)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Working\s*·\s*(\d+s)$/i, (_m, dur) => '正在工作 · ' + dur);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Resume the conversation to start its workspace again,\s*then start the server on port\s+(\d+)\s+and retry\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Resume the conversation to start its workspace again,\s*then start the server on port\s+(\d+)\s+and retry\.?$/i,
+        (_m, port) => '请恢复对话以重新启动其工作区，然后在端口 ' + port + ' 上启动服务并重试。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No server is listening on port\s+(\d+)\s+inside the remote workspace\.\s*Start it,\s*or ask the agent to,\s*then retry\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^No server is listening on port\s+(\d+)\s+inside the remote workspace\.\s*Start it,\s*or ask the agent to,\s*then retry\.?$/i,
+        (_m, port) => '远程工作区内端口 ' + port + ' 上没有正在监听的服务。请启动该服务（或让智能体为您启动），然后重试。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^The certificate was rejected\s*\((.+)\)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^The certificate was rejected\s*\((.+)\)\.?$/i, (_m, code) => '证书已被拒绝（' + code + '）。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Help us improve\s+(Antigravity|Jetski)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Help us improve\s+(Antigravity|Jetski)\.?$/i, (_m, app) => '帮助我们改进 ' + app + '。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+replies$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+replies$/i, (_m, n) => n + ' 条回复');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+\+?)\s+match(?:es)?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+\+?)\s+match(?:es)?$/i, (_m, n) => n + ' 个匹配');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Thread:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Thread:\s*(.+)$/, (_m, title) => '话题：' + title);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Thread|Topic)\s+([A-Za-z0-9_-]*\d[A-Za-z0-9_-]*)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Thread|Topic)\s+([A-Za-z0-9_-]*\d[A-Za-z0-9_-]*)$/, (_m, kind, id) => (kind === 'Thread' ? '话题 ' : '主题 ') + id);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Copied|Copy) link to\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Copied|Copy) link to\s+(.+)$/, (_m, act, target) => (act === 'Copied' ? '已复制链接：' : '复制链接：') + target);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Details for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Details for\s+(.+)$/, (_m, title) => '详情：' + title);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Permission:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Permission:\s*(.+)$/, (_m, act) => '权限：' + act);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Answered:\s*“(.+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Answered:\s*“(.+)”$/, (_m, ans) => '已回答：“' + ans + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Running\s+“(.+)”\s+now$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Running\s+“(.+)”\s+now$/, (_m, name) => '正在立即运行“' + name + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Run failed:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Run failed:\s*(.+)$/, (_m, err) => '运行失败：' + err);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Automation error:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Automation error:\s*(.+)$/, (_m, err) => '自动化错误：' + err);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(.+?)\s+spawned from\s+(.+?)\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(.+?)\s+spawned from\s+(.+?)\.$/, (_m, role, parent) => {
+        const roleCn = role === 'Worker' ? '工作线程' : role;
+        const parentCn = parent === 'parent conversation' ? '父级对话' : parent;
+        return roleCn + ' 派生自 ' + parentCn + '。';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+agents?\s+(?:is|are)\s+working quietly in the background\.\s*Anything that needs your input will show up here\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^(\d+)\s+agents?\s+(?:is|are)\s+working quietly in the background\.\s*Anything that needs your input will show up here\.$/i,
+        (_m, n) => n + ' 个智能体正在后台静默运行。任何需要您输入的内容都会显示在这里。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^·\s*\+(\d+)\s+more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^·\s*\+(\d+)\s+more$/i, (_m, n) => '· 还有 +' + n + ' 项');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Artifact|Link)\s*·\s*\+(\d+)\s+more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Artifact|Link)\s*·\s*\+(\d+)\s+more$/i, (_m, kind, n) => (/^link$/i.test(kind) ? '链接' : '工件') + ' · 还有 +' + n + ' 项');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Show in Sidebar\s*\((\d+\/\d+)\)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Show in Sidebar\s*\((\d+\/\d+)\)$/, (_m, ratio) => '在侧边栏中显示 (' + ratio + ')');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?\s*·\s*sign in for more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?\s*·\s*sign in for more$/i, (_m, n) => n + ' 个工具 · 登录后可使用更多');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?\s+disabled$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?\s+disabled$/i, (_m, n) => '已禁用 ' + n + ' 个工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?$/i, (_m, n) => n + ' 个工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Replace environment variable:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Replace environment variable:\s*(.+)$/, (_m, lbl) => '替换环境变量：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Replace secret:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Replace secret:\s*(.+)$/, (_m, lbl) => '替换密钥：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Add environment variable:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Add environment variable:\s*(.+)$/, (_m, lbl) => '添加环境变量：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Add network secret:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Add network secret:\s*(.+)$/, (_m, lbl) => '添加网络密钥：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Environment variable\s+"([^"]+)"\s+is already used by\s+(an Environment Variable|a Network Secret|another credential|"[^"]+")(?:\s+\("([^"]+)"\))?\s+in this scope\.\s*Choose a different\s+(key|name)\s+or\s+(delete|replace)\s+the existing credential\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Environment variable\s+"([^"]+)"\s+is already used by\s+(an Environment Variable|a Network Secret|another credential|"[^"]+")(?:\s+\("([^"]+)"\))?\s+in this scope\.\s*Choose a different\s+(key|name)\s+or\s+(delete|replace)\s+the existing credential\.$/i,
+        (_m, envName, holder, holderLabel, fieldKind, action) => {
+          const holderCn = /^an environment variable$/i.test(holder)
+            ? '环境变量'
+            : (/^a network secret$/i.test(holder) ? '网络密钥' : (/^another credential$/i.test(holder) ? '另一个凭据' : holder));
+          const labelPart = holderLabel ? '（“' + holderLabel + '”）' : '';
+          const fieldCn = /^key$/i.test(fieldKind) ? '键名' : '名称';
+          const actionCn = /^delete$/i.test(action) ? '删除' : '替换';
+          return '环境变量“' + envName + '”在此作用域中已被' + holderCn + labelPart + '使用。请改用其他' + fieldCn + '，或' + actionCn + '现有凭据。';
+        }
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Failed to load instances:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Failed to load instances:\s*(.+)$/, (_m, msg) => '加载实例失败：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Connect GitHub:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Connect GitHub:\s*(.+)$/, (_m, msg) => '连接 GitHub：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Credentials expire in\s+(.+?)\.\s*Refresh credentials to keep this automation running\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Credentials expire in\s+(.+?)\.\s*Refresh credentials to keep this automation running\.?$/i,
+        (_m, dur) => '凭据将在 ' + formatDurationCn(dur) + ' 后过期。请刷新凭据以保持此自动化任务运行'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Started|Restarted|Enabled)\s+"([^"]+)"\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Started|Restarted|Enabled)\s+"([^"]+)"\.$/i, (_m, act, name) => {
+        const actMap = { started: '已启动', restarted: '已重启', enabled: '已启用' };
+        return (actMap[act.toLowerCase()] || act) + '“' + name + '”。';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Failed to\s+(start|update|delete)\s+"([^"]+)"(\.?)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Failed to\s+(start|update|delete)\s+"([^"]+)"(\.?)$/i, (_m, act, name, dot) => {
+        const actMap = { start: '启动', update: '更新', delete: '删除' };
+        return (actMap[act.toLowerCase()] || act) + '“' + name + '”失败' + (dot ? '。' : '');
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Agents created by this\s+(.+?)\s+run in a dedicated\s+(.+?)\s+with its own permissions\.\s*You can change the permissions in the\s+(.+?)\s+settings page\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Agents created by this\s+(.+?)\s+run in a dedicated\s+(.+?)\s+with its own permissions\.\s*You can change the permissions in the\s+(.+?)\s+settings page\.$/i,
+        (_m, kind, scope1, scope2) => {
+          const scopeCn = (s) => (/workspace/i.test(s) ? '工作区' : (/project/i.test(s) ? '项目' : s));
+          const kindCn = /automation/i.test(kind) ? '自动化任务' : (/plugin/i.test(kind) ? '插件' : kind);
+          return '由此' + kindCn + '创建的智能体将在具有独立权限的专用' + scopeCn(scope1) + '中运行。您可以在' + scopeCn(scope2) + '设置页面中更改权限。';
+        }
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Started\s+(?:during|from)\s+.+?)\.\s*Show in\s+(subagent|main)\s+conversation$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^(Started\s+(?:during|from)\s+.+?)\.\s*Show in\s+(subagent|main)\s+conversation$/i,
+        (_m, prefix, kind) => translateString(prefix) + '。在' + (kind.toLowerCase() === 'subagent' ? '子智能体' : '主') + '对话中显示'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Started\s+(during|from)\s+“(.+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Started\s+(during|from)\s+“(.+)”$/, (_m, kind, title) => {
+        return kind === 'during' ? '在执行“' + title + '”期间发起' : '从“' + title + '”发起';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Can't access\s+"([^"]+)"\.\s*macOS privacy settings are blocking Antigravity from this location\.\s*Allow Antigravity in System Settings > Privacy & Security > Files and Folders \(or Full Disk Access\)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Can't access\s+"([^"]+)"\.\s*macOS privacy settings are blocking Antigravity from this location\.\s*Allow Antigravity in System Settings > Privacy & Security > Files and Folders \(or Full Disk Access\)\.?$/i,
+        (_m, p) => '无法访问“' + p + '”。macOS 隐私设置正在阻止 Antigravity 访问此位置。请在“系统设置 > 隐私与安全性 > 文件与文件夹（或完全磁盘访问权限）”中允许 Antigravity。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+MCP servers failed to start$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+MCP servers failed to start$/i, (_m, n) => n + ' 个 MCP 服务器启动失败');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Retry loading\s+(.+?)\s+configuration$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Retry loading\s+(.+?)\s+configuration$/i, (_m, name) => '重试加载 ' + name + ' 配置');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Account this MCP server uses:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Account this MCP server uses:\s*(.+)$/, (_m, lbl) => '此 MCP 服务器使用的账户：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Auth code for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Auth code for\s+(.+)$/, (_m, name) => name + ' 的授权码');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Configure\s+(.+),\s*values missing$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Configure\s+(.+),\s*values missing$/, (_m, name) => '配置 ' + name + '（缺少必填值）');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Enable|Disable)\s+(.+?)\s+tool for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Enable|Disable)\s+(.+?)\s+tool for\s+(.+)$/, (_m, act, tool, srv) => (act === 'Enable' ? '为 ' : '为 ') + srv + (act === 'Enable' ? ' 启用 ' : ' 禁用 ') + tool + ' 工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^MCP server\s+(.+?)\s+requires authentication:\s*sign in to\s+"([^"]+)"\s+in the Accounts section of plugin\s+"([^"]+)"$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^MCP server\s+(.+?)\s+requires authentication:\s*sign in to\s+"([^"]+)"\s+in the Accounts section of plugin\s+"([^"]+)"$/,
+        (_m, srv, acc, pluginName) => 'MCP 服务器 ' + srv + ' 需要身份验证：请在插件“' + pluginName + '”的“账户”部分登录“' + acc + '”'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^MCP server\s+(.+?)\s+requires authentication$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^MCP server\s+(.+?)\s+requires authentication$/, (_m, srv) => 'MCP 服务器 ' + srv + ' 需要身份验证');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Install folder\s+"([^"]+)"\s+is already in use$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Install folder\s+"([^"]+)"\s+is already in use$/, (_m, folder) => '安装目录“' + folder + '”已被占用');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^The\s+(.+?)\s+MCP server requires configuration parameters before it can be started\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^The\s+(.+?)\s+MCP server requires configuration parameters before it can be started\.$/, (_m, name) => name + ' MCP 服务器在启动前需要先配置参数。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(.+?)\s+needs you to sign in before it can be used\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(.+?)\s+needs you to sign in before it can be used\.$/, (_m, name) => name + ' 需要您先登录才能使用。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Fix with Agent:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Fix with Agent:\s*(.+)$/, (_m, name) => '使用智能体修复：' + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^On top of those defaults,\s*(.+?)\s+requests the access below\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^On top of those defaults,\s*(.+?)\s+requests the access below\.$/, (_m, name) => '除上述默认权限外，' + name + ' 还请求以下访问权限：');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No (apps|plugins) found for\s+"([^"]+)"\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^No (apps|plugins) found for\s+"([^"]+)"\.$/i, (_m, kind, q) => '未找到与“' + q + '”相关的' + (/apps/i.test(kind) ? '应用' : '插件') + '。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No MCP servers found for\s+"([^"]+)"$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^No MCP servers found for\s+"([^"]+)"$/, (_m, q) => '未找到与“' + q + '”相关的 MCP 服务器');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Search for\s+"([^"]+)"\s+in the Marketplace$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Search for\s+"([^"]+)"\s+in the Marketplace$/, (_m, q) => '在扩展市场中搜索“' + q + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No connectors match\s+“([^”]+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^No connectors match\s+“([^”]+)”$/, (_m, q) => '没有匹配“' + q + '”的连接器');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Signed in:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Signed in:\s*(.+)$/, (_m, name) => '已登录：' + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Skill|Plugin)\s+installed:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Skill|Plugin)\s+installed:\s*(.+)$/, (_m, kind, name) => (kind === 'Skill' ? '已安装技能：' : '已安装插件：') + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
     // 5. 大小写不敏感词典查找与末尾标点剥离重拼（O(1)，命中写入 stringCache）
     const caseInsensitiveHit = lowerDictionary.get(trimmed.toLowerCase());
     if (caseInsensitiveHit !== undefined) {
@@ -9807,7 +10467,20 @@ if (!isRemoteWindow) {
         }
         slots.push({ type: 'text', node: child });
       } else if (child.nodeType === Node.ELEMENT_NODE) {
-        if (!child.childNodes || child.childNodes.length !== 1 || !child.firstChild || child.firstChild.nodeType !== Node.TEXT_NODE) {
+        if (!child.childNodes || child.childNodes.length === 0) {
+          return false;
+        }
+        let allTextChildren = true;
+        let joinedAnchor = '';
+        for (let ci = 0; ci < child.childNodes.length; ci++) {
+          const ch = child.childNodes[ci];
+          if (!ch || ch.nodeType !== Node.TEXT_NODE) {
+            allTextChildren = false;
+            break;
+          }
+          joinedAnchor += ch.nodeValue || '';
+        }
+        if (!allTextChildren) {
           return false;
         }
         const anchorTag = (child.tagName || '').toUpperCase();
@@ -9815,7 +10488,7 @@ if (!isRemoteWindow) {
         slots.push({
           type: 'anchor',
           node: child,
-          anchorText: child.firstChild.nodeValue.trim(),
+          anchorText: joinedAnchor.trim(),
           isProtectedAnchor
         });
       } else {
@@ -9825,27 +10498,173 @@ if (!isRemoteWindow) {
 
     const anchors = slots.filter(s => s.type === 'anchor');
     if (!anchors.length) {
-      // 兼容 React 连续三段文本节点（如 {"Site data cleared for "}{host}{"."} / {"Could not clear site data for "}{host}{"."}）
-      // 严格保留中间动态 host 文本节点引用不动，仅改写前后固定文本节点，兼容 React 后续局部更新
-      if (children.length === 3 && children.every(c => c.nodeType === Node.TEXT_NODE)) {
-        const pre = (children[0].nodeValue || '').trim();
-        const mid = (children[1].nodeValue || '').trim();
-        const post = (children[2].nodeValue || '').trim();
-        if (mid && (post === '.' || post === '。' || post === '')) {
-          if (/^Site data cleared for$/i.test(pre)) {
-            children[0].nodeValue = '已清除 ';
-            children[2].nodeValue = ' 的站点数据。';
-            translatedNodes.set(children[0], '已清除 ');
+      // 兼容 React 连续纯文本节点（如站点数据清理、搜索空状态、按钮动态计数与 Onboarding 条款声明）
+      // 严格保留动态中间文本节点引用不动，仅改写前后固定文本节点，兼容 React 后续局部更新
+      if (children.every(c => c.nodeType === Node.TEXT_NODE)) {
+        if (children.length === 2) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          if (/^Project ID:$/i.test(p0) && p1) {
+            children[0].nodeValue = '项目 ID：';
+            translatedNodes.set(children[0], '项目 ID：');
             translatedNodes.set(children[1], children[1].nodeValue);
-            translatedNodes.set(children[2], ' 的站点数据。');
             return true;
           }
-          if (/^Could not clear site data for$/i.test(pre)) {
-            children[0].nodeValue = '无法清除 ';
-            children[2].nodeValue = ' 的站点数据。';
-            translatedNodes.set(children[0], '无法清除 ');
+          if (/^Location:$/i.test(p0) && p1) {
+            children[0].nodeValue = '位置：';
+            translatedNodes.set(children[0], '位置：');
+            if (/^Global$/i.test(p1)) {
+              children[1].nodeValue = '全局';
+            }
             translatedNodes.set(children[1], children[1].nodeValue);
-            translatedNodes.set(children[2], ' 的站点数据。');
+            return true;
+          }
+          if (/^No matching$/i.test(p0) && p1) {
+            children[0].nodeValue = '未找到匹配的 ';
+            translatedNodes.set(children[0], '未找到匹配的 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            return true;
+          }
+          if (p0 && /^’s agents are powerful and will help you get a lot done better and faster than before, but still make sure to verify the actions taken by the agent\.$/i.test(p1)) {
+            const fixedP1 = ' 的智能体功能强大，能够帮您比以往更高效、更出色地完成任务，但仍请务必核实智能体执行的所有操作。';
+            children[1].nodeValue = fixedP1;
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], fixedP1);
+            return true;
+          }
+        }
+        if (children.length === 3) {
+          const pre = (children[0].nodeValue || '').trim();
+          const mid = (children[1].nodeValue || '').trim();
+          const post = (children[2].nodeValue || '').trim();
+          if (mid && (post === '.' || post === '。' || post === '')) {
+            if (/^Site data cleared for$/i.test(pre)) {
+              children[0].nodeValue = '已清除 ';
+              children[2].nodeValue = ' 的站点数据。';
+              translatedNodes.set(children[0], '已清除 ');
+              translatedNodes.set(children[1], children[1].nodeValue);
+              translatedNodes.set(children[2], ' 的站点数据。');
+              return true;
+            }
+            if (/^Could not clear site data for$/i.test(pre)) {
+              children[0].nodeValue = '无法清除 ';
+              children[2].nodeValue = ' 的站点数据。';
+              translatedNodes.set(children[0], '无法清除 ');
+              translatedNodes.set(children[1], children[1].nodeValue);
+              translatedNodes.set(children[2], ' 的站点数据。');
+              return true;
+            }
+          }
+          if (mid && /^No settings match\s*[“"]$/i.test(pre) && /^[”"]$/.test(post)) {
+            children[0].nodeValue = '没有匹配“';
+            children[2].nodeValue = '”的设置';
+            translatedNodes.set(children[0], '没有匹配“');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], '”的设置');
+            return true;
+          }
+          if (mid && /^Hide non-admin\s*\($/i.test(pre) && post === ')') {
+            children[0].nodeValue = '隐藏非管理员 (';
+            translatedNodes.set(children[0], '隐藏非管理员 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Show all\s*\($/i.test(pre) && post === ')') {
+            children[0].nodeValue = '显示全部 (';
+            translatedNodes.set(children[0], '显示全部 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Show all\s*\($/i.test(pre) && /^hidden\)$/i.test(post)) {
+            children[0].nodeValue = '显示全部 (';
+            children[2].nodeValue = ' 项已隐藏)';
+            translatedNodes.set(children[0], '显示全部 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项已隐藏)');
+            return true;
+          }
+          if (mid && /^Restore$/i.test(pre) && /^cleared$/i.test(post)) {
+            children[0].nodeValue = '恢复已清除的 ';
+            children[2].nodeValue = ' 项';
+            translatedNodes.set(children[0], '恢复已清除的 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项');
+            return true;
+          }
+          if (mid && /^Reset\s*\($/i.test(pre) && /^cleared\)$/i.test(post)) {
+            children[0].nodeValue = '重置（已清除 ';
+            children[2].nodeValue = ' 项）';
+            translatedNodes.set(children[0], '重置（已清除 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项）');
+            return true;
+          }
+          if (mid && /^Available for$/i.test(pre) && /^project$/i.test(post)) {
+            children[0].nodeValue = '适用于 ';
+            children[2].nodeValue = ' 项目';
+            translatedNodes.set(children[0], '适用于 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项目');
+            return true;
+          }
+          if (mid && /^Customize your experience across the agent, plugins, and product from the settings and marketplace\. We won’t show you ads or let advertisers influence what$/i.test(pre) && /^says\.$/i.test(post)) {
+            children[0].nodeValue = '您可以在设置和插件市场中自由定制智能体、插件与产品体验。我们不会向您展示广告，也不会让广告商影响 ';
+            children[2].nodeValue = ' 的输出内容。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Telemetry is turned off for your account\.$/i.test(pre) && /^does not collect any of your prompts, content, or model responses but will still collect general usage patterns \(e\.g\., feature adoption, active user counts\)\.$/i.test(post)) {
+            children[0].nodeValue = '您的账号已关闭遥测功能。';
+            children[2].nodeValue = ' 不会收集您的任何提示词、内容或模型回复，但仍会收集常规使用模式（例如功能采用率、活跃用户数）。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Sign up for newsletters, tips and tricks, and other notifications about$/i.test(pre) && post === '.') {
+            children[0].nodeValue = '订阅有关 ';
+            children[2].nodeValue = ' 的新闻通讯、使用技巧与其他通知。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+        }
+        if (children.length === 4) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          const p2 = (children[2].nodeValue || '').trim();
+          const p3 = (children[3].nodeValue || '').trim();
+          if (p1 && /^No messages matching\s*[“"]$/i.test(p0) && /^[”"]$/.test(p2) && (p3 === '.' || /^in loaded messages\.$/i.test(p3))) {
+            children[0].nodeValue = '没有匹配“';
+            children[2].nodeValue = '”的消息';
+            children[3].nodeValue = /loaded messages/i.test(p3) ? '（仅限已加载消息）。' : '。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            translatedNodes.set(children[3], children[3].nodeValue);
+            return true;
+          }
+        }
+        if (children.length === 6) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          const p2 = (children[2].nodeValue || '').trim();
+          const p4 = (children[4].nodeValue || '').trim();
+          const p5 = (children[5].nodeValue || '').trim();
+          if (/^Searching$/i.test(p0) && p1 && /^loaded$/i.test(p2) && /^messages?$/i.test(p4) && /^—\s*older history available$/i.test(p5)) {
+            children[0].nodeValue = '正在搜索已加载的 ';
+            children[2].nodeValue = ' 条消息 — 还有更早的历史记录';
+            children[3].nodeValue = '';
+            children[4].nodeValue = '';
+            children[5].nodeValue = '';
+            for (let ci = 0; ci < 6; ci++) {
+              translatedNodes.set(children[ci], children[ci].nodeValue);
+            }
             return true;
           }
         }
@@ -9893,8 +10712,12 @@ if (!isRemoteWindow) {
       if (s.type === 'anchor') {
         const anc = anchors[anchorIdx];
         if (anc.newAnchorText) {
-          s.node.firstChild.nodeValue = anc.newAnchorText;
-          translatedNodes.set(s.node.firstChild, anc.newAnchorText);
+          s.node.childNodes[0].nodeValue = anc.newAnchorText;
+          translatedNodes.set(s.node.childNodes[0], anc.newAnchorText);
+          for (let ci = 1; ci < s.node.childNodes.length; ci++) {
+            s.node.childNodes[ci].nodeValue = '';
+            translatedNodes.set(s.node.childNodes[ci], '');
+          }
         }
         consumed = anc.end;
         anchorIdx++;

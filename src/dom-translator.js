@@ -3032,6 +3032,400 @@
       cacheSet(trimmed, fixed);
       return replaceTrimmed(text, trimmed, fixed);
     }
+
+    // ===== Antigravity v2.36.0 动态规则：企业计费/环境变量/Feeds/话题搜索/MCP/Sidecar/权限（全回调函数 $-安全） =====
+    if (/^Working\s*·\s*(\d+s)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Working\s*·\s*(\d+s)$/i, (_m, dur) => '正在工作 · ' + dur);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Resume the conversation to start its workspace again,\s*then start the server on port\s+(\d+)\s+and retry\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Resume the conversation to start its workspace again,\s*then start the server on port\s+(\d+)\s+and retry\.?$/i,
+        (_m, port) => '请恢复对话以重新启动其工作区，然后在端口 ' + port + ' 上启动服务并重试。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No server is listening on port\s+(\d+)\s+inside the remote workspace\.\s*Start it,\s*or ask the agent to,\s*then retry\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^No server is listening on port\s+(\d+)\s+inside the remote workspace\.\s*Start it,\s*or ask the agent to,\s*then retry\.?$/i,
+        (_m, port) => '远程工作区内端口 ' + port + ' 上没有正在监听的服务。请启动该服务（或让智能体为您启动），然后重试。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^The certificate was rejected\s*\((.+)\)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^The certificate was rejected\s*\((.+)\)\.?$/i, (_m, code) => '证书已被拒绝（' + code + '）。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Help us improve\s+(Antigravity|Jetski)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Help us improve\s+(Antigravity|Jetski)\.?$/i, (_m, app) => '帮助我们改进 ' + app + '。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+replies$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+replies$/i, (_m, n) => n + ' 条回复');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+\+?)\s+match(?:es)?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+\+?)\s+match(?:es)?$/i, (_m, n) => n + ' 个匹配');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Thread:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Thread:\s*(.+)$/, (_m, title) => '话题：' + title);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Thread|Topic)\s+([A-Za-z0-9_-]*\d[A-Za-z0-9_-]*)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Thread|Topic)\s+([A-Za-z0-9_-]*\d[A-Za-z0-9_-]*)$/, (_m, kind, id) => (kind === 'Thread' ? '话题 ' : '主题 ') + id);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Copied|Copy) link to\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Copied|Copy) link to\s+(.+)$/, (_m, act, target) => (act === 'Copied' ? '已复制链接：' : '复制链接：') + target);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Details for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Details for\s+(.+)$/, (_m, title) => '详情：' + title);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Permission:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Permission:\s*(.+)$/, (_m, act) => '权限：' + act);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Answered:\s*“(.+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Answered:\s*“(.+)”$/, (_m, ans) => '已回答：“' + ans + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Running\s+“(.+)”\s+now$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Running\s+“(.+)”\s+now$/, (_m, name) => '正在立即运行“' + name + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Run failed:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Run failed:\s*(.+)$/, (_m, err) => '运行失败：' + err);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Automation error:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Automation error:\s*(.+)$/, (_m, err) => '自动化错误：' + err);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(.+?)\s+spawned from\s+(.+?)\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(.+?)\s+spawned from\s+(.+?)\.$/, (_m, role, parent) => {
+        const roleCn = role === 'Worker' ? '工作线程' : role;
+        const parentCn = parent === 'parent conversation' ? '父级对话' : parent;
+        return roleCn + ' 派生自 ' + parentCn + '。';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+agents?\s+(?:is|are)\s+working quietly in the background\.\s*Anything that needs your input will show up here\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^(\d+)\s+agents?\s+(?:is|are)\s+working quietly in the background\.\s*Anything that needs your input will show up here\.$/i,
+        (_m, n) => n + ' 个智能体正在后台静默运行。任何需要您输入的内容都会显示在这里。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^·\s*\+(\d+)\s+more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^·\s*\+(\d+)\s+more$/i, (_m, n) => '· 还有 +' + n + ' 项');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Artifact|Link)\s*·\s*\+(\d+)\s+more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Artifact|Link)\s*·\s*\+(\d+)\s+more$/i, (_m, kind, n) => (/^link$/i.test(kind) ? '链接' : '工件') + ' · 还有 +' + n + ' 项');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Show in Sidebar\s*\((\d+\/\d+)\)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Show in Sidebar\s*\((\d+\/\d+)\)$/, (_m, ratio) => '在侧边栏中显示 (' + ratio + ')');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?\s*·\s*sign in for more$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?\s*·\s*sign in for more$/i, (_m, n) => n + ' 个工具 · 登录后可使用更多');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?\s+disabled$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?\s+disabled$/i, (_m, n) => '已禁用 ' + n + ' 个工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+tools?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+tools?$/i, (_m, n) => n + ' 个工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Replace environment variable:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Replace environment variable:\s*(.+)$/, (_m, lbl) => '替换环境变量：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Replace secret:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Replace secret:\s*(.+)$/, (_m, lbl) => '替换密钥：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Add environment variable:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Add environment variable:\s*(.+)$/, (_m, lbl) => '添加环境变量：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Add network secret:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Add network secret:\s*(.+)$/, (_m, lbl) => '添加网络密钥：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Environment variable\s+"([^"]+)"\s+is already used by\s+(an Environment Variable|a Network Secret|another credential|"[^"]+")(?:\s+\("([^"]+)"\))?\s+in this scope\.\s*Choose a different\s+(key|name)\s+or\s+(delete|replace)\s+the existing credential\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Environment variable\s+"([^"]+)"\s+is already used by\s+(an Environment Variable|a Network Secret|another credential|"[^"]+")(?:\s+\("([^"]+)"\))?\s+in this scope\.\s*Choose a different\s+(key|name)\s+or\s+(delete|replace)\s+the existing credential\.$/i,
+        (_m, envName, holder, holderLabel, fieldKind, action) => {
+          const holderCn = /^an environment variable$/i.test(holder)
+            ? '环境变量'
+            : (/^a network secret$/i.test(holder) ? '网络密钥' : (/^another credential$/i.test(holder) ? '另一个凭据' : holder));
+          const labelPart = holderLabel ? '（“' + holderLabel + '”）' : '';
+          const fieldCn = /^key$/i.test(fieldKind) ? '键名' : '名称';
+          const actionCn = /^delete$/i.test(action) ? '删除' : '替换';
+          return '环境变量“' + envName + '”在此作用域中已被' + holderCn + labelPart + '使用。请改用其他' + fieldCn + '，或' + actionCn + '现有凭据。';
+        }
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Failed to load instances:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Failed to load instances:\s*(.+)$/, (_m, msg) => '加载实例失败：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Connect GitHub:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Connect GitHub:\s*(.+)$/, (_m, msg) => '连接 GitHub：' + msg);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Credentials expire in\s+(.+?)\.\s*Refresh credentials to keep this automation running\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Credentials expire in\s+(.+?)\.\s*Refresh credentials to keep this automation running\.?$/i,
+        (_m, dur) => '凭据将在 ' + formatDurationCn(dur) + ' 后过期。请刷新凭据以保持此自动化任务运行'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Started|Restarted|Enabled)\s+"([^"]+)"\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Started|Restarted|Enabled)\s+"([^"]+)"\.$/i, (_m, act, name) => {
+        const actMap = { started: '已启动', restarted: '已重启', enabled: '已启用' };
+        return (actMap[act.toLowerCase()] || act) + '“' + name + '”。';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Failed to\s+(start|update|delete)\s+"([^"]+)"(\.?)$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Failed to\s+(start|update|delete)\s+"([^"]+)"(\.?)$/i, (_m, act, name, dot) => {
+        const actMap = { start: '启动', update: '更新', delete: '删除' };
+        return (actMap[act.toLowerCase()] || act) + '“' + name + '”失败' + (dot ? '。' : '');
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Agents created by this\s+(.+?)\s+run in a dedicated\s+(.+?)\s+with its own permissions\.\s*You can change the permissions in the\s+(.+?)\s+settings page\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Agents created by this\s+(.+?)\s+run in a dedicated\s+(.+?)\s+with its own permissions\.\s*You can change the permissions in the\s+(.+?)\s+settings page\.$/i,
+        (_m, kind, scope1, scope2) => {
+          const scopeCn = (s) => (/workspace/i.test(s) ? '工作区' : (/project/i.test(s) ? '项目' : s));
+          const kindCn = /automation/i.test(kind) ? '自动化任务' : (/plugin/i.test(kind) ? '插件' : kind);
+          return '由此' + kindCn + '创建的智能体将在具有独立权限的专用' + scopeCn(scope1) + '中运行。您可以在' + scopeCn(scope2) + '设置页面中更改权限。';
+        }
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Started\s+(?:during|from)\s+.+?)\.\s*Show in\s+(subagent|main)\s+conversation$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^(Started\s+(?:during|from)\s+.+?)\.\s*Show in\s+(subagent|main)\s+conversation$/i,
+        (_m, prefix, kind) => translateString(prefix) + '。在' + (kind.toLowerCase() === 'subagent' ? '子智能体' : '主') + '对话中显示'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Started\s+(during|from)\s+“(.+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Started\s+(during|from)\s+“(.+)”$/, (_m, kind, title) => {
+        return kind === 'during' ? '在执行“' + title + '”期间发起' : '从“' + title + '”发起';
+      });
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Can't access\s+"([^"]+)"\.\s*macOS privacy settings are blocking Antigravity from this location\.\s*Allow Antigravity in System Settings > Privacy & Security > Files and Folders \(or Full Disk Access\)\.?$/i.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^Can't access\s+"([^"]+)"\.\s*macOS privacy settings are blocking Antigravity from this location\.\s*Allow Antigravity in System Settings > Privacy & Security > Files and Folders \(or Full Disk Access\)\.?$/i,
+        (_m, p) => '无法访问“' + p + '”。macOS 隐私设置正在阻止 Antigravity 访问此位置。请在“系统设置 > 隐私与安全性 > 文件与文件夹（或完全磁盘访问权限）”中允许 Antigravity。'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(\d+)\s+MCP servers failed to start$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^(\d+)\s+MCP servers failed to start$/i, (_m, n) => n + ' 个 MCP 服务器启动失败');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Retry loading\s+(.+?)\s+configuration$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^Retry loading\s+(.+?)\s+configuration$/i, (_m, name) => '重试加载 ' + name + ' 配置');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Account this MCP server uses:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Account this MCP server uses:\s*(.+)$/, (_m, lbl) => '此 MCP 服务器使用的账户：' + lbl);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Auth code for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Auth code for\s+(.+)$/, (_m, name) => name + ' 的授权码');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Configure\s+(.+),\s*values missing$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Configure\s+(.+),\s*values missing$/, (_m, name) => '配置 ' + name + '（缺少必填值）');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Enable|Disable)\s+(.+?)\s+tool for\s+(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Enable|Disable)\s+(.+?)\s+tool for\s+(.+)$/, (_m, act, tool, srv) => (act === 'Enable' ? '为 ' : '为 ') + srv + (act === 'Enable' ? ' 启用 ' : ' 禁用 ') + tool + ' 工具');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^MCP server\s+(.+?)\s+requires authentication:\s*sign in to\s+"([^"]+)"\s+in the Accounts section of plugin\s+"([^"]+)"$/.test(trimmed)) {
+      const fixed = trimmed.replace(
+        /^MCP server\s+(.+?)\s+requires authentication:\s*sign in to\s+"([^"]+)"\s+in the Accounts section of plugin\s+"([^"]+)"$/,
+        (_m, srv, acc, pluginName) => 'MCP 服务器 ' + srv + ' 需要身份验证：请在插件“' + pluginName + '”的“账户”部分登录“' + acc + '”'
+      );
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^MCP server\s+(.+?)\s+requires authentication$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^MCP server\s+(.+?)\s+requires authentication$/, (_m, srv) => 'MCP 服务器 ' + srv + ' 需要身份验证');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Install folder\s+"([^"]+)"\s+is already in use$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Install folder\s+"([^"]+)"\s+is already in use$/, (_m, folder) => '安装目录“' + folder + '”已被占用');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^The\s+(.+?)\s+MCP server requires configuration parameters before it can be started\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^The\s+(.+?)\s+MCP server requires configuration parameters before it can be started\.$/, (_m, name) => name + ' MCP 服务器在启动前需要先配置参数。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(.+?)\s+needs you to sign in before it can be used\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(.+?)\s+needs you to sign in before it can be used\.$/, (_m, name) => name + ' 需要您先登录才能使用。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Fix with Agent:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Fix with Agent:\s*(.+)$/, (_m, name) => '使用智能体修复：' + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^On top of those defaults,\s*(.+?)\s+requests the access below\.$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^On top of those defaults,\s*(.+?)\s+requests the access below\.$/, (_m, name) => '除上述默认权限外，' + name + ' 还请求以下访问权限：');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No (apps|plugins) found for\s+"([^"]+)"\.$/i.test(trimmed)) {
+      const fixed = trimmed.replace(/^No (apps|plugins) found for\s+"([^"]+)"\.$/i, (_m, kind, q) => '未找到与“' + q + '”相关的' + (/apps/i.test(kind) ? '应用' : '插件') + '。');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No MCP servers found for\s+"([^"]+)"$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^No MCP servers found for\s+"([^"]+)"$/, (_m, q) => '未找到与“' + q + '”相关的 MCP 服务器');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Search for\s+"([^"]+)"\s+in the Marketplace$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Search for\s+"([^"]+)"\s+in the Marketplace$/, (_m, q) => '在扩展市场中搜索“' + q + '”');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^No connectors match\s+“([^”]+)”$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^No connectors match\s+“([^”]+)”$/, (_m, q) => '没有匹配“' + q + '”的连接器');
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^Signed in:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^Signed in:\s*(.+)$/, (_m, name) => '已登录：' + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
+
+    if (/^(Skill|Plugin)\s+installed:\s*(.+)$/.test(trimmed)) {
+      const fixed = trimmed.replace(/^(Skill|Plugin)\s+installed:\s*(.+)$/, (_m, kind, name) => (kind === 'Skill' ? '已安装技能：' : '已安装插件：') + name);
+      cacheSet(trimmed, fixed);
+      return replaceTrimmed(text, trimmed, fixed);
+    }
     // 5. 大小写不敏感词典查找与末尾标点剥离重拼（O(1)，命中写入 stringCache）
     const caseInsensitiveHit = lowerDictionary.get(trimmed.toLowerCase());
     if (caseInsensitiveHit !== undefined) {
@@ -3789,7 +4183,20 @@
         }
         slots.push({ type: 'text', node: child });
       } else if (child.nodeType === Node.ELEMENT_NODE) {
-        if (!child.childNodes || child.childNodes.length !== 1 || !child.firstChild || child.firstChild.nodeType !== Node.TEXT_NODE) {
+        if (!child.childNodes || child.childNodes.length === 0) {
+          return false;
+        }
+        let allTextChildren = true;
+        let joinedAnchor = '';
+        for (let ci = 0; ci < child.childNodes.length; ci++) {
+          const ch = child.childNodes[ci];
+          if (!ch || ch.nodeType !== Node.TEXT_NODE) {
+            allTextChildren = false;
+            break;
+          }
+          joinedAnchor += ch.nodeValue || '';
+        }
+        if (!allTextChildren) {
           return false;
         }
         const anchorTag = (child.tagName || '').toUpperCase();
@@ -3797,7 +4204,7 @@
         slots.push({
           type: 'anchor',
           node: child,
-          anchorText: child.firstChild.nodeValue.trim(),
+          anchorText: joinedAnchor.trim(),
           isProtectedAnchor
         });
       } else {
@@ -3807,27 +4214,173 @@
 
     const anchors = slots.filter(s => s.type === 'anchor');
     if (!anchors.length) {
-      // 兼容 React 连续三段文本节点（如 {"Site data cleared for "}{host}{"."} / {"Could not clear site data for "}{host}{"."}）
-      // 严格保留中间动态 host 文本节点引用不动，仅改写前后固定文本节点，兼容 React 后续局部更新
-      if (children.length === 3 && children.every(c => c.nodeType === Node.TEXT_NODE)) {
-        const pre = (children[0].nodeValue || '').trim();
-        const mid = (children[1].nodeValue || '').trim();
-        const post = (children[2].nodeValue || '').trim();
-        if (mid && (post === '.' || post === '。' || post === '')) {
-          if (/^Site data cleared for$/i.test(pre)) {
-            children[0].nodeValue = '已清除 ';
-            children[2].nodeValue = ' 的站点数据。';
-            translatedNodes.set(children[0], '已清除 ');
+      // 兼容 React 连续纯文本节点（如站点数据清理、搜索空状态、按钮动态计数与 Onboarding 条款声明）
+      // 严格保留动态中间文本节点引用不动，仅改写前后固定文本节点，兼容 React 后续局部更新
+      if (children.every(c => c.nodeType === Node.TEXT_NODE)) {
+        if (children.length === 2) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          if (/^Project ID:$/i.test(p0) && p1) {
+            children[0].nodeValue = '项目 ID：';
+            translatedNodes.set(children[0], '项目 ID：');
             translatedNodes.set(children[1], children[1].nodeValue);
-            translatedNodes.set(children[2], ' 的站点数据。');
             return true;
           }
-          if (/^Could not clear site data for$/i.test(pre)) {
-            children[0].nodeValue = '无法清除 ';
-            children[2].nodeValue = ' 的站点数据。';
-            translatedNodes.set(children[0], '无法清除 ');
+          if (/^Location:$/i.test(p0) && p1) {
+            children[0].nodeValue = '位置：';
+            translatedNodes.set(children[0], '位置：');
+            if (/^Global$/i.test(p1)) {
+              children[1].nodeValue = '全局';
+            }
             translatedNodes.set(children[1], children[1].nodeValue);
-            translatedNodes.set(children[2], ' 的站点数据。');
+            return true;
+          }
+          if (/^No matching$/i.test(p0) && p1) {
+            children[0].nodeValue = '未找到匹配的 ';
+            translatedNodes.set(children[0], '未找到匹配的 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            return true;
+          }
+          if (p0 && /^’s agents are powerful and will help you get a lot done better and faster than before, but still make sure to verify the actions taken by the agent\.$/i.test(p1)) {
+            const fixedP1 = ' 的智能体功能强大，能够帮您比以往更高效、更出色地完成任务，但仍请务必核实智能体执行的所有操作。';
+            children[1].nodeValue = fixedP1;
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], fixedP1);
+            return true;
+          }
+        }
+        if (children.length === 3) {
+          const pre = (children[0].nodeValue || '').trim();
+          const mid = (children[1].nodeValue || '').trim();
+          const post = (children[2].nodeValue || '').trim();
+          if (mid && (post === '.' || post === '。' || post === '')) {
+            if (/^Site data cleared for$/i.test(pre)) {
+              children[0].nodeValue = '已清除 ';
+              children[2].nodeValue = ' 的站点数据。';
+              translatedNodes.set(children[0], '已清除 ');
+              translatedNodes.set(children[1], children[1].nodeValue);
+              translatedNodes.set(children[2], ' 的站点数据。');
+              return true;
+            }
+            if (/^Could not clear site data for$/i.test(pre)) {
+              children[0].nodeValue = '无法清除 ';
+              children[2].nodeValue = ' 的站点数据。';
+              translatedNodes.set(children[0], '无法清除 ');
+              translatedNodes.set(children[1], children[1].nodeValue);
+              translatedNodes.set(children[2], ' 的站点数据。');
+              return true;
+            }
+          }
+          if (mid && /^No settings match\s*[“"]$/i.test(pre) && /^[”"]$/.test(post)) {
+            children[0].nodeValue = '没有匹配“';
+            children[2].nodeValue = '”的设置';
+            translatedNodes.set(children[0], '没有匹配“');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], '”的设置');
+            return true;
+          }
+          if (mid && /^Hide non-admin\s*\($/i.test(pre) && post === ')') {
+            children[0].nodeValue = '隐藏非管理员 (';
+            translatedNodes.set(children[0], '隐藏非管理员 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Show all\s*\($/i.test(pre) && post === ')') {
+            children[0].nodeValue = '显示全部 (';
+            translatedNodes.set(children[0], '显示全部 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Show all\s*\($/i.test(pre) && /^hidden\)$/i.test(post)) {
+            children[0].nodeValue = '显示全部 (';
+            children[2].nodeValue = ' 项已隐藏)';
+            translatedNodes.set(children[0], '显示全部 (');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项已隐藏)');
+            return true;
+          }
+          if (mid && /^Restore$/i.test(pre) && /^cleared$/i.test(post)) {
+            children[0].nodeValue = '恢复已清除的 ';
+            children[2].nodeValue = ' 项';
+            translatedNodes.set(children[0], '恢复已清除的 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项');
+            return true;
+          }
+          if (mid && /^Reset\s*\($/i.test(pre) && /^cleared\)$/i.test(post)) {
+            children[0].nodeValue = '重置（已清除 ';
+            children[2].nodeValue = ' 项）';
+            translatedNodes.set(children[0], '重置（已清除 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项）');
+            return true;
+          }
+          if (mid && /^Available for$/i.test(pre) && /^project$/i.test(post)) {
+            children[0].nodeValue = '适用于 ';
+            children[2].nodeValue = ' 项目';
+            translatedNodes.set(children[0], '适用于 ');
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], ' 项目');
+            return true;
+          }
+          if (mid && /^Customize your experience across the agent, plugins, and product from the settings and marketplace\. We won’t show you ads or let advertisers influence what$/i.test(pre) && /^says\.$/i.test(post)) {
+            children[0].nodeValue = '您可以在设置和插件市场中自由定制智能体、插件与产品体验。我们不会向您展示广告，也不会让广告商影响 ';
+            children[2].nodeValue = ' 的输出内容。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Telemetry is turned off for your account\.$/i.test(pre) && /^does not collect any of your prompts, content, or model responses but will still collect general usage patterns \(e\.g\., feature adoption, active user counts\)\.$/i.test(post)) {
+            children[0].nodeValue = '您的账号已关闭遥测功能。';
+            children[2].nodeValue = ' 不会收集您的任何提示词、内容或模型回复，但仍会收集常规使用模式（例如功能采用率、活跃用户数）。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+          if (mid && /^Sign up for newsletters, tips and tricks, and other notifications about$/i.test(pre) && post === '.') {
+            children[0].nodeValue = '订阅有关 ';
+            children[2].nodeValue = ' 的新闻通讯、使用技巧与其他通知。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            return true;
+          }
+        }
+        if (children.length === 4) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          const p2 = (children[2].nodeValue || '').trim();
+          const p3 = (children[3].nodeValue || '').trim();
+          if (p1 && /^No messages matching\s*[“"]$/i.test(p0) && /^[”"]$/.test(p2) && (p3 === '.' || /^in loaded messages\.$/i.test(p3))) {
+            children[0].nodeValue = '没有匹配“';
+            children[2].nodeValue = '”的消息';
+            children[3].nodeValue = /loaded messages/i.test(p3) ? '（仅限已加载消息）。' : '。';
+            translatedNodes.set(children[0], children[0].nodeValue);
+            translatedNodes.set(children[1], children[1].nodeValue);
+            translatedNodes.set(children[2], children[2].nodeValue);
+            translatedNodes.set(children[3], children[3].nodeValue);
+            return true;
+          }
+        }
+        if (children.length === 6) {
+          const p0 = (children[0].nodeValue || '').trim();
+          const p1 = (children[1].nodeValue || '').trim();
+          const p2 = (children[2].nodeValue || '').trim();
+          const p4 = (children[4].nodeValue || '').trim();
+          const p5 = (children[5].nodeValue || '').trim();
+          if (/^Searching$/i.test(p0) && p1 && /^loaded$/i.test(p2) && /^messages?$/i.test(p4) && /^—\s*older history available$/i.test(p5)) {
+            children[0].nodeValue = '正在搜索已加载的 ';
+            children[2].nodeValue = ' 条消息 — 还有更早的历史记录';
+            children[3].nodeValue = '';
+            children[4].nodeValue = '';
+            children[5].nodeValue = '';
+            for (let ci = 0; ci < 6; ci++) {
+              translatedNodes.set(children[ci], children[ci].nodeValue);
+            }
             return true;
           }
         }
@@ -3875,8 +4428,12 @@
       if (s.type === 'anchor') {
         const anc = anchors[anchorIdx];
         if (anc.newAnchorText) {
-          s.node.firstChild.nodeValue = anc.newAnchorText;
-          translatedNodes.set(s.node.firstChild, anc.newAnchorText);
+          s.node.childNodes[0].nodeValue = anc.newAnchorText;
+          translatedNodes.set(s.node.childNodes[0], anc.newAnchorText);
+          for (let ci = 1; ci < s.node.childNodes.length; ci++) {
+            s.node.childNodes[ci].nodeValue = '';
+            translatedNodes.set(s.node.childNodes[ci], '');
+          }
         }
         consumed = anc.end;
         anchorIdx++;

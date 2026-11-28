@@ -4,6 +4,22 @@
 
 ---
 
+## v2.36.0 (2026-11-28) — 精准适配官方 2.36.0 版本：全面覆盖企业计费/环境变量/Feeds/对话话题搜索/Git Worktree 与 React 多节点条款拼合
+
+### 1. 官方 v2.36.0 逐文件差异核验与原生解包规格对齐
+- **纯净官方原版 `dist/**` 与 `language_server` 内嵌前端全量审计**：基于纯净官方 `Antigravity v2.36.0` 原版 `app.asar`（`isLocalizedAsar === false`）解包核验全部主进程 `dist/**` 模块与 `language_server` 内嵌 548 项前端资产及 Swarm HTML/JS。确认 `dist/**` 全部主进程补丁点实现 **`0` 跳过 100% 命中**，且所有 v2.36.0 新增界面变更集中于 `language_server` 内嵌前端。
+- **版本门禁与原生瘦身包重编**：同步将 `localize.js`（`CURRENT_VERSION` / `RELEASE_VERSION`）、`package.json`、`extracted/package.json`、`install_mac.sh`、`index.html` 与预编译 `app.asar.ready` 升至 **`2.36.0`**；基于官方解包目录携带 `--unpack-dir "**/chrome-devtools-mcp"` 规范重打包，确认解包头与官方 `app.asar.unpacked` 完全一致，`app.asar.ready` 精确为 **`8,045,301` 字节（`7.67 MiB`）**。
+
+### 2. v2.36.0 Web UI 全量扫漏与引擎增强（词典总计 5,232 键 0 重复，+57 组 `$`-安全动态规则）
+- **企业计费与工作流新特性全覆盖（`+267` 条零重复词条）**：覆盖企业计费与许可证分配、组织预付费钱包 (`Organization prepaid wallet is empty`) 及应用默认凭据 (`ADC`) 登录/网关验证提示；环境变量 (`Environment variables`) 与网络密钥 (`Network secrets`) 及其作用域冲突动态提示；`Feeds` 动态流、交付物 (`Deliverable`)、`Remote Control` 与定时任务凭据过期/唤醒状态流；对话话题线程 (`Thread`)、表情回应、静默 FYI 投递与会话内搜索；`Fork in New Git Worktree`、快照恢复 (`Workspace > Restore to Snapshot`) 与 GitHub CLI 鉴权引导；MCP 服务器配置/工具开关/认证提示、`Untrusted sidecar`、`CEL` 过滤器、表格预览与内置浏览器嵌入/密码安全警示。
+- **全回调函数 `$`-安全动态规则（`+57` 组）与精确覆盖**：新增工作状态计时、远程端口未监听/恢复、证书拒绝、话题/回复计数、环境变量冲突、MCP 服务器配置/认证、`Started during/from` 等 57 组纯回调函数动态规则（杜绝 `$1`/`$&` 模板注入并保持幂等性）；同时将 `"Skipped command"` 收录至静态词典覆盖动态前缀冲突。
+- **React 多节点拼合与 `<a>` 子节点扩展（`tryCombinedSentenceTranslation`）**：扩展支持多文本节点 `<a>` 锚点（如 `Google {app} Terms of Service`），并新增 2/3/4/6 节点 React 文本片段原位汉化（`Project ID:`、`Location:`、`No matching`、新版 Onboarding 条款/广告/遥测/新闻订阅勾选框、`No settings match`、`No messages matching`、`Hide non-admin`、`Show all`、`Restore ... cleared`、`Reset (... cleared)`、`Available for ... project`、`Searching N loaded message(s)`），在保留动态节点引用的同时实现完整句子翻译。
+
+### 3. 全链路验证与测试门禁
+- 新增并注册 [`ticket-61-v2360-features.test.js`](tests/ticket-61-v2360-features.test.js)；全工程 **68/68 组 TDD 自动化测试套件 100% ALL GREEN**，并通过全量 `extracted/dist/**/*.js` `node --check` 与 `bash -n install_mac.sh` 校验。
+
+---
+
 ## v2.35.2 (2026-11-26) — 精准适配官方 2.35.2 版本：同步 AI 正文与行内代码隔离、智能体错误卡片汉化及 2.35.2 前端全量扫漏补齐
 
 ### 1. 官方 v2.35.2 逐文件差异核验与原生解包规格对齐

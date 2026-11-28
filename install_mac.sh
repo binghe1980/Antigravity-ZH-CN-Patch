@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "$0")" && pwd)"
 PATCH_ASAR="${1:-${SCRIPT_DIR}/app.asar.ready}"
-EXPECTED_VERSION="2.35.2"
+EXPECTED_VERSION="2.36.0"
 APP_BUNDLE="${ANTIGRAVITY_APP:-/Applications/Antigravity.app}"
 RESOURCES_DIR="${APP_BUNDLE}/Contents/Resources"
 TARGET_ASAR="${RESOURCES_DIR}/app.asar"
